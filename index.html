@@ -7,1794 +7,1187 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
   :root {
-    --red: #E8192C;
-    --red-dark: #B5101F;
-    --red-light: #FF4D5E;
-    --blue: #1A2F6E;
-    --blue-mid: #2045A0;
-    --blue-light: #3460D8;
-    --blue-pale: #E8EEFF;
-    --white: #FFFFFF;
-    --off-white: #F8F8FC;
-    --gray-50: #F4F5FA;
-    --gray-100: #E9EAF2;
-    --gray-300: #B0B3C8;
-    --gray-600: #5A5E7A;
-    --gray-800: #1E2035;
-    --gold: #F5A623;
-    --green: #16A34A;
-    --shadow-sm: 0 2px 8px rgba(26,47,110,0.08);
-    --shadow-md: 0 8px 24px rgba(26,47,110,0.12);
-    --shadow-lg: 0 20px 60px rgba(26,47,110,0.16);
-    --radius: 16px;
-    --radius-sm: 10px;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--gray-50);
-    color: var(--gray-800);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* ── ANIMATED BACKGROUND ── */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 800px 600px at 10% 20%, rgba(26,47,110,0.06) 0%, transparent 60%),
-      radial-gradient(ellipse 600px 500px at 90% 80%, rgba(232,25,44,0.05) 0%, transparent 60%);
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  /* ── HEADER ── */
-  header {
-    background: var(--blue);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 4px 20px rgba(26,47,110,0.3);
-  }
-
-  .header-inner {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 24px;
-    height: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-  }
-
-  .logo-area {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-
-  .logo-badge {
-    height: 42px;
-    width: auto;
-    flex-shrink: 0;
-    display: block;
-    filter: brightness(0) invert(1);
-  }
-
-  .logo-text {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 17px;
-    color: white;
-    line-height: 1.2;
-  }
-
-  .logo-sub {
-    font-size: 11px;
-    color: rgba(255,255,255,0.55);
-    font-weight: 400;
-    display: block;
-  }
-
-  nav {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-
-  nav a {
-    color: rgba(255,255,255,0.7);
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 500;
-    padding: 6px 12px;
-    border-radius: 8px;
-    transition: all 0.2s;
-    white-space: nowrap;
-  }
-
-  nav a:hover, nav a.active {
-    background: rgba(255,255,255,0.12);
-    color: white;
-  }
-
-  .header-badge {
-    background: var(--red);
-    color: white;
-    font-size: 11px;
-    font-weight: 600;
-    padding: 4px 10px;
-    border-radius: 20px;
-    white-space: nowrap;
-  }
-
-  .hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-    padding: 6px;
-  }
-  .hamburger span {
-    width: 22px;
-    height: 2px;
-    background: white;
-    border-radius: 2px;
-    transition: all 0.3s;
-  }
-
-  /* ── HERO STRIP ── */
-  .hero-strip {
-    background: linear-gradient(135deg, var(--blue) 0%, var(--blue-mid) 50%, var(--blue-light) 100%);
-    position: relative;
-    overflow: hidden;
-    padding: 48px 24px 40px;
-  }
-
-  .hero-strip::before {
-    content: '';
-    position: absolute;
-    right: -80px;
-    top: -80px;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(232,25,44,0.25) 0%, transparent 70%);
-    animation: pulse 4s ease-in-out infinite;
-  }
-
-  .hero-strip::after {
-    content: '';
-    position: absolute;
-    left: 20%;
-    bottom: -60px;
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
-    animation: pulse 6s ease-in-out infinite reverse;
-  }
-
-  @keyframes pulse {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.1); opacity: 0.7; }
-  }
-
-  .hero-inner {
-    max-width: 1400px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 32px;
-    flex-wrap: wrap;
-  }
-
-  .hero-text h1 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(26px, 4vw, 40px);
-    font-weight: 800;
-    color: white;
-    line-height: 1.15;
-    margin-bottom: 8px;
-  }
-
-  .hero-text h1 span {
-    color: var(--red-light);
-  }
-
-  .hero-text p {
-    color: rgba(255,255,255,0.65);
-    font-size: 15px;
-    max-width: 480px;
-  }
-
-  .hero-stats {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-
-  .hero-stat {
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: var(--radius);
-    padding: 16px 24px;
-    text-align: center;
-    backdrop-filter: blur(10px);
-    transition: transform 0.3s, background 0.3s;
-  }
-
-  .hero-stat:hover {
-    transform: translateY(-2px);
-    background: rgba(255,255,255,0.15);
-  }
-
-  .hero-stat-number {
-    font-family: 'Syne', sans-serif;
-    font-size: 32px;
-    font-weight: 800;
-    color: white;
-    line-height: 1;
-    display: block;
-  }
-
-  .hero-stat-label {
-    font-size: 12px;
-    color: rgba(255,255,255,0.6);
-    margin-top: 4px;
-    display: block;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  .pulse-dot {
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    background: #4ade80;
-    border-radius: 50%;
-    margin-right: 6px;
-    animation: blink 1.5s ease-in-out infinite;
-  }
-
-  @keyframes blink {
-    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(74,222,128,0.6); }
-    50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(74,222,128,0); }
-  }
-
-  /* ── LAYOUT ── */
-  .content {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 32px 24px 64px;
-    position: relative;
-    z-index: 1;
-  }
-
-  /* ── SECTION TITLES ── */
-  .section-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 24px;
-    margin-top: 48px;
-  }
-
-  .section-header:first-child { margin-top: 0; }
-
-  .section-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    flex-shrink: 0;
-  }
-
-  .section-icon.red { background: rgba(232,25,44,0.1); }
-  .section-icon.blue { background: rgba(26,47,110,0.1); }
-  .section-icon.gold { background: rgba(245,166,35,0.1); }
-  .section-icon.green { background: rgba(22,163,74,0.1); }
-  .section-icon.purple { background: rgba(139,92,246,0.1); }
-
-  .section-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--blue);
-  }
-
-  .section-title span {
-    color: var(--red);
-  }
-
-  .section-subtitle {
-    font-size: 13px;
-    color: var(--gray-300);
-    margin-left: auto;
-    font-weight: 400;
-  }
-
-  /* ── CARDS ── */
-  .card {
-    background: white;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow-sm);
-    border: 1px solid var(--gray-100);
-    overflow: hidden;
-    transition: box-shadow 0.3s, transform 0.3s;
-  }
-
-  .card:hover {
-    box-shadow: var(--shadow-md);
-    transform: translateY(-1px);
-  }
-
-  .card-header {
-    padding: 18px 20px 0;
-    font-family: 'Syne', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--blue);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .card-body { padding: 16px 20px 20px; }
-
-  /* ── GRID HELPERS ── */
-  .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-  .grid-1-2 { display: grid; grid-template-columns: 1fr 2fr; gap: 20px; }
-  .grid-2-1 { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
-
-  /* ── TEAM SECTION ── */
-  .team-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 16px;
-  }
-
-  .team-card {
-    background: white;
-    border-radius: var(--radius);
-    border: 1px solid var(--gray-100);
-    padding: 20px 16px;
-    text-align: center;
-    transition: all 0.3s;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .team-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-  }
-
-  .team-card.ec-president::before { background: linear-gradient(90deg, var(--red), var(--red-light)); }
-  .team-card.ec-vp::before { background: linear-gradient(90deg, var(--blue-mid), var(--blue-light)); }
-  .team-card.ec-innovation::before { background: linear-gradient(90deg, #8B5CF6, #A78BFA); }
-  .team-card.ec-leadership::before { background: linear-gradient(90deg, var(--gold), #FBBF24); }
-  .team-card.intern::before { background: linear-gradient(90deg, var(--gray-300), var(--gray-100)); }
-
-  .team-card:hover {
-    box-shadow: var(--shadow-md);
-    transform: translateY(-3px);
-  }
-
-  .team-avatar {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    margin: 0 auto 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 20px;
-    color: white;
-  }
-
-  .team-card.ec-president .team-avatar { background: linear-gradient(135deg, var(--red), var(--red-dark)); }
-  .team-card.ec-vp .team-avatar { background: linear-gradient(135deg, var(--blue-mid), var(--blue-light)); }
-  .team-card.ec-innovation .team-avatar { background: linear-gradient(135deg, #8B5CF6, #7C3AED); }
-  .team-card.ec-leadership .team-avatar { background: linear-gradient(135deg, var(--gold), #D97706); }
-  .team-card.intern .team-avatar { background: linear-gradient(135deg, var(--gray-600), var(--gray-800)); }
-
-  .team-name {
-    font-family: 'Syne', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--gray-800);
-    margin-bottom: 4px;
-  }
-
-  .team-role {
-    font-size: 12px;
-    color: var(--gray-600);
-    margin-bottom: 10px;
-    line-height: 1.4;
-  }
-
-  .role-badge {
-    display: inline-block;
-    font-size: 10px;
-    font-weight: 600;
-    padding: 3px 8px;
-    border-radius: 20px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  .team-card.ec-president .role-badge { background: rgba(232,25,44,0.1); color: var(--red); }
-  .team-card.ec-vp .role-badge { background: rgba(32,69,160,0.1); color: var(--blue-mid); }
-  .team-card.ec-innovation .role-badge { background: rgba(139,92,246,0.1); color: #7C3AED; }
-  .team-card.ec-leadership .role-badge { background: rgba(245,166,35,0.1); color: #D97706; }
-  .team-card.intern .role-badge { background: var(--gray-100); color: var(--gray-600); }
-
-  /* ── LEADERBOARD ── */
-  .leaderboard-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  .leaderboard-table th {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--gray-300);
-    padding: 10px 16px;
-    text-align: left;
-    border-bottom: 1px solid var(--gray-100);
-  }
-
-  .leaderboard-table td {
-    padding: 12px 16px;
-    font-size: 14px;
-    border-bottom: 1px solid var(--gray-100);
-    vertical-align: middle;
-  }
-
-  .leaderboard-table tr:last-child td { border-bottom: none; }
-
-  .leaderboard-table tr:hover td { background: var(--gray-50); }
-
-  .rank-badge {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 12px;
-  }
-
-  .rank-1 { background: linear-gradient(135deg, #F5A623, #D97706); color: white; }
-  .rank-2 { background: linear-gradient(135deg, #9CA3AF, #6B7280); color: white; }
-  .rank-3 { background: linear-gradient(135deg, #B45309, #92400E); color: white; }
-  .rank-other { background: var(--gray-100); color: var(--gray-600); }
-
-  .perf-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 11px;
-    font-weight: 600;
-    padding: 3px 10px;
-    border-radius: 20px;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-  }
-
-  .perf-O { background: rgba(22,163,74,0.1); color: var(--green); }
-  .perf-A { background: rgba(32,69,160,0.1); color: var(--blue-mid); }
-  .perf-B { background: rgba(245,166,35,0.12); color: #D97706; }
-
-  .score-bar-wrap {
-    width: 80px;
-    height: 6px;
-    background: var(--gray-100);
-    border-radius: 3px;
-    overflow: hidden;
-  }
-
-  .score-bar {
-    height: 100%;
-    border-radius: 3px;
-    transition: width 1s ease;
-  }
-
-  .score-bar.O { background: linear-gradient(90deg, var(--green), #4ade80); }
-  .score-bar.A { background: linear-gradient(90deg, var(--blue-light), #60A5FA); }
-  .score-bar.B { background: linear-gradient(90deg, var(--gold), #FBBF24); }
-
-  /* ── TASK SECTION ── */
-  .task-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 14px 0;
-    border-bottom: 1px solid var(--gray-100);
-    transition: background 0.2s;
-  }
-
-  .task-item:last-child { border-bottom: none; padding-bottom: 0; }
-
-  .task-status-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  .status-not-started { background: var(--gray-300); }
-  .status-in-progress { background: var(--gold); animation: blink 1.5s infinite; }
-  .status-completed { background: var(--green); }
-
-  .task-info { flex: 1; min-width: 0; }
-
-  .task-name {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--gray-800);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .task-meta {
-    font-size: 12px;
-    color: var(--gray-300);
-    margin-top: 2px;
-  }
-
-  .task-badge {
-    font-size: 11px;
-    font-weight: 600;
-    padding: 3px 8px;
-    border-radius: 6px;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .badge-not-started { background: var(--gray-100); color: var(--gray-600); }
-  .badge-in-progress { background: rgba(245,166,35,0.12); color: #D97706; }
-  .badge-completed { background: rgba(22,163,74,0.1); color: var(--green); }
-
-  .task-owner {
-    font-size: 12px;
-    color: var(--gray-600);
-    background: var(--gray-50);
-    padding: 3px 8px;
-    border-radius: 6px;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .deadline-chip {
-    font-size: 11px;
-    padding: 2px 7px;
-    border-radius: 5px;
-    flex-shrink: 0;
-  }
-
-  .deadline-overdue { background: rgba(232,25,44,0.1); color: var(--red); }
-  .deadline-soon { background: rgba(245,166,35,0.12); color: #D97706; }
-  .deadline-ok { background: rgba(22,163,74,0.1); color: var(--green); }
-
-  /* ── MONTHLY UPDATES ── */
-  .update-card {
-    background: linear-gradient(135deg, var(--blue) 0%, var(--blue-mid) 100%);
-    border-radius: var(--radius);
-    padding: 28px;
-    color: white;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .update-card::after {
-    content: '';
-    position: absolute;
-    right: -40px;
-    bottom: -40px;
-    width: 180px;
-    height: 180px;
-    background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
-  }
-
-  .update-month {
-    font-family: 'Syne', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: rgba(255,255,255,0.5);
-    margin-bottom: 8px;
-  }
-
-  .update-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    line-height: 1.3;
-  }
-
-  .update-body {
-    font-size: 14px;
-    color: rgba(255,255,255,0.75);
-    line-height: 1.7;
-    position: relative;
-    z-index: 1;
-  }
-
-  .achievement-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .achievement-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    font-size: 14px;
-    color: var(--gray-800);
-    padding: 12px 14px;
-    background: white;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--gray-100);
-    transition: all 0.2s;
-  }
-
-  .achievement-list li:hover {
-    border-color: var(--blue-pale);
-    box-shadow: var(--shadow-sm);
-  }
-
-  .achievement-list li::before {
-    content: '✦';
-    color: var(--red);
-    font-size: 12px;
-    margin-top: 1px;
-    flex-shrink: 0;
-  }
-
-  /* ── EVENTS ── */
-  .event-item {
-    display: flex;
-    gap: 16px;
-    padding: 16px 0;
-    border-bottom: 1px solid var(--gray-100);
-    align-items: flex-start;
-  }
-
-  .event-item:last-child { border-bottom: none; }
-
-  .event-date-box {
-    background: var(--blue);
-    border-radius: 10px;
-    padding: 8px 12px;
-    text-align: center;
-    flex-shrink: 0;
-    min-width: 52px;
-  }
-
-  .event-day {
-    font-family: 'Syne', sans-serif;
-    font-size: 22px;
-    font-weight: 800;
-    color: white;
-    line-height: 1;
-  }
-
-  .event-month {
-    font-size: 10px;
-    color: rgba(255,255,255,0.6);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-weight: 600;
-  }
-
-  .event-info { flex: 1; }
-
-  .event-name {
-    font-family: 'Syne', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--gray-800);
-    margin-bottom: 4px;
-  }
-
-  .event-desc {
-    font-size: 13px;
-    color: var(--gray-600);
-    line-height: 1.5;
-  }
-
-  .event-tag {
-    display: inline-block;
-    font-size: 10px;
-    font-weight: 600;
-    padding: 2px 8px;
-    border-radius: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-    margin-top: 6px;
-  }
-
-  .tag-upcoming { background: rgba(52,96,216,0.1); color: var(--blue-light); }
-  .tag-past { background: var(--gray-100); color: var(--gray-600); }
-  .tag-live { background: rgba(232,25,44,0.1); color: var(--red); }
-
-  /* ── GOOGLE SHEETS INTEGRATION ── */
-  .sheets-panel {
-    background: white;
-    border-radius: var(--radius);
-    border: 1px solid var(--gray-100);
-    overflow: hidden;
-  }
-
-  .sheets-header {
-    background: linear-gradient(90deg, var(--green), #15803D);
-    padding: 16px 20px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .sheets-icon {
-    width: 32px;
-    height: 32px;
-    background: white;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-  }
-
-  .sheets-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    color: white;
-  }
-
-  .sheets-body { padding: 20px; }
-
-  .sheets-input-row {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 16px;
-  }
-
-  .sheets-input {
-    flex: 1;
-    border: 1px solid var(--gray-100);
-    border-radius: 8px;
-    padding: 10px 14px;
-    font-size: 13px;
-    font-family: 'DM Sans', sans-serif;
-    color: var(--gray-800);
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  .sheets-input:focus { border-color: var(--blue-light); }
-
-  .btn {
-    padding: 10px 18px;
-    border: none;
-    border-radius: 8px;
-    font-family: 'Syne', sans-serif;
-    font-weight: 600;
-    font-size: 13px;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .btn-primary {
-    background: var(--blue);
-    color: white;
-  }
-
-  .btn-primary:hover { background: var(--blue-mid); transform: translateY(-1px); }
-
-  .btn-red {
-    background: var(--red);
-    color: white;
-  }
-
-  .btn-red:hover { background: var(--red-dark); transform: translateY(-1px); }
-
-  .btn-ghost {
-    background: var(--gray-50);
-    color: var(--gray-600);
-    border: 1px solid var(--gray-100);
-  }
-
-  .btn-ghost:hover { background: var(--gray-100); }
-
-  .sync-status {
-    font-size: 13px;
-    color: var(--gray-600);
-    padding: 10px 14px;
-    background: var(--gray-50);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .data-preview-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-    margin-top: 12px;
-  }
-
-  .data-preview-table th {
-    background: var(--gray-50);
-    padding: 8px 12px;
-    text-align: left;
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--gray-300);
-    border-bottom: 1px solid var(--gray-100);
-  }
-
-  .data-preview-table td {
-    padding: 8px 12px;
-    border-bottom: 1px solid var(--gray-100);
-    color: var(--gray-800);
-  }
-
-  .data-preview-table tr:last-child td { border-bottom: none; }
-
-  /* ── TABS ── */
-  .tabs {
-    display: flex;
-    gap: 4px;
-    margin-bottom: 20px;
-    background: var(--gray-100);
-    border-radius: 10px;
-    padding: 4px;
-  }
-
-  .tab {
-    flex: 1;
-    text-align: center;
-    padding: 8px 12px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-    color: var(--gray-600);
-    border: none;
-    background: transparent;
-    font-family: 'DM Sans', sans-serif;
-  }
-
-  .tab.active {
-    background: white;
-    color: var(--blue);
-    font-weight: 600;
-    box-shadow: var(--shadow-sm);
-  }
-
-  .tab-pane { display: none; }
-  .tab-pane.active { display: block; }
-
-  /* ── STAT MINI CARDS ── */
-  .mini-stat {
-    background: white;
-    border-radius: var(--radius);
-    border: 1px solid var(--gray-100);
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    transition: all 0.3s;
-  }
-
-  .mini-stat:hover {
-    box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
-  }
-
-  .mini-stat-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    flex-shrink: 0;
-  }
-
-  .mini-stat-num {
-    font-family: 'Syne', sans-serif;
-    font-size: 28px;
-    font-weight: 800;
-    color: var(--gray-800);
-    line-height: 1;
-  }
-
-  .mini-stat-lbl {
-    font-size: 12px;
-    color: var(--gray-300);
-    margin-top: 2px;
-  }
-
-  .mini-stat-change {
-    margin-left: auto;
-    font-size: 12px;
-    font-weight: 600;
-    padding: 3px 8px;
-    border-radius: 6px;
-  }
-
-  .change-up { background: rgba(22,163,74,0.1); color: var(--green); }
-  .change-dn { background: rgba(232,25,44,0.08); color: var(--red); }
-
-  /* ── PROGRESS RING ── */
-  .progress-ring-wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .progress-ring-label {
-    font-size: 12px;
-    color: var(--gray-600);
-    font-weight: 500;
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    background: var(--blue);
-    color: rgba(255,255,255,0.5);
-    text-align: center;
-    padding: 20px 24px;
-    font-size: 12px;
-    margin-top: 32px;
-  }
-
-  footer strong { color: rgba(255,255,255,0.8); }
-
-  /* ── SEPARATOR ── */
-  .sep {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gray-100), transparent);
-    margin: 0 -24px;
-  }
-
-  /* ── NOTICE BANNER ── */
-  .notice-banner {
-    background: linear-gradient(90deg, rgba(232,25,44,0.08), rgba(26,47,110,0.06));
-    border: 1px solid rgba(232,25,44,0.15);
-    border-radius: var(--radius-sm);
-    padding: 12px 16px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 28px;
-    font-size: 13px;
-    color: var(--gray-600);
-  }
-
-  .notice-icon { font-size: 16px; flex-shrink: 0; }
-
-  /* ── MOBILE ── */
-  @media (max-width: 900px) {
-    .grid-3 { grid-template-columns: 1fr 1fr; }
-    .grid-4 { grid-template-columns: 1fr 1fr; }
-    .grid-1-2, .grid-2-1 { grid-template-columns: 1fr; }
-  }
-
-  @media (max-width: 640px) {
-    nav { display: none; }
-    nav.open { display: flex; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--blue); padding: 16px; gap: 4px; border-top: 1px solid rgba(255,255,255,0.1); }
-    nav.open a { padding: 12px 16px; border-radius: 8px; }
-    .hamburger { display: flex; }
-    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
-    .hero-stats { gap: 10px; }
-    .hero-stat { padding: 12px 16px; }
-    .hero-stat-number { font-size: 24px; }
-    .header-badge { display: none; }
-    .team-grid { grid-template-columns: 1fr 1fr; }
-    .section-subtitle { display: none; }
-    .tabs { overflow-x: auto; }
-    .leaderboard-table th:nth-child(4),
-    .leaderboard-table td:nth-child(4) { display: none; }
-  }
-
-  @media (max-width: 420px) {
-    .team-grid { grid-template-columns: 1fr; }
-  }
-
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .fade-up {
-    opacity: 0;
-    animation: fadeUp 0.5s ease forwards;
-  }
-
-  .delay-1 { animation-delay: 0.1s; }
-  .delay-2 { animation-delay: 0.2s; }
-  .delay-3 { animation-delay: 0.3s; }
-  .delay-4 { animation-delay: 0.4s; }
-
-  /* number count animation */
-  .count-num { display: inline-block; }
-
-  /* tooltip */
-  [data-tooltip] { position: relative; cursor: pointer; }
-  [data-tooltip]::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    bottom: calc(100% + 6px);
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--gray-800);
-    color: white;
-    font-size: 11px;
-    padding: 4px 8px;
-    border-radius: 6px;
-    white-space: nowrap;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.2s;
-    z-index: 10;
-  }
-  [data-tooltip]:hover::after { opacity: 1; }
+    --red:#E8192C; --red-dark:#B5101F; --red-light:#FF4D5E;
+    --blue:#1A2F6E; --blue-mid:#2045A0; --blue-light:#3460D8; --blue-pale:#E8EEFF;
+    --white:#FFFFFF; --off-white:#F8F8FC; --gray-50:#F4F5FA; --gray-100:#E9EAF2;
+    --gray-300:#B0B3C8; --gray-600:#5A5E7A; --gray-800:#1E2035;
+    --gold:#F5A623; --green:#16A34A;
+    --shadow-sm:0 2px 8px rgba(26,47,110,0.08); --shadow-md:0 8px 24px rgba(26,47,110,0.12);
+    --radius:16px; --radius-sm:10px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;} html{scroll-behavior:smooth;}
+  body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--gray-800);min-height:100vh;overflow-x:hidden;}
+  body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 800px 600px at 10% 20%,rgba(26,47,110,0.06) 0%,transparent 60%),radial-gradient(ellipse 600px 500px at 90% 80%,rgba(232,25,44,0.05) 0%,transparent 60%);pointer-events:none;z-index:0;}
+
+  /* HEADER */
+  header{background:var(--blue);position:sticky;top:0;z-index:100;box-shadow:0 4px 20px rgba(26,47,110,0.3);}
+  .header-inner{max-width:1400px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+  .logo-area{display:flex;align-items:center;gap:14px;}
+  .logo-img{height:40px;width:auto;filter:brightness(0) invert(1);}
+  .logo-sub{font-size:11px;color:rgba(255,255,255,0.55);font-weight:400;display:block;font-family:'DM Sans',sans-serif;}
+  nav{display:flex;align-items:center;gap:4px;flex-wrap:nowrap;}
+  nav a{color:rgba(255,255,255,0.7);text-decoration:none;font-size:12.5px;font-weight:500;padding:6px 10px;border-radius:8px;transition:all 0.2s;white-space:nowrap;}
+  nav a:hover,nav a.active{background:rgba(255,255,255,0.12);color:white;}
+  .header-badge{background:var(--red);color:white;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;white-space:nowrap;}
+  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;}
+  .hamburger span{width:22px;height:2px;background:white;border-radius:2px;}
+
+  /* HERO */
+  .hero-strip{background:linear-gradient(135deg,var(--blue) 0%,var(--blue-mid) 50%,var(--blue-light) 100%);position:relative;overflow:hidden;padding:44px 24px 36px;}
+  .hero-strip::before{content:'';position:absolute;right:-80px;top:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(232,25,44,0.25) 0%,transparent 70%);animation:pulse 4s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.1);opacity:0.7;}}
+  .hero-inner{max-width:1400px;margin:0 auto;position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;}
+  .hero-text h1{font-family:'Syne',sans-serif;font-size:clamp(22px,3.5vw,38px);font-weight:800;color:white;line-height:1.15;margin-bottom:8px;}
+  .hero-text h1 span{color:var(--red-light);}
+  .hero-text p{color:rgba(255,255,255,0.65);font-size:14px;max-width:480px;}
+  .hero-stats{display:flex;gap:14px;flex-wrap:wrap;}
+  .hero-stat{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius);padding:14px 20px;text-align:center;backdrop-filter:blur(10px);transition:transform 0.3s,background 0.3s;}
+  .hero-stat:hover{transform:translateY(-2px);background:rgba(255,255,255,0.15);}
+  .hero-stat-number{font-family:'Syne',sans-serif;font-size:30px;font-weight:800;color:white;line-height:1;display:block;}
+  .hero-stat-label{font-size:11px;color:rgba(255,255,255,0.6);margin-top:4px;display:block;font-weight:500;text-transform:uppercase;letter-spacing:0.5px;}
+  .pulse-dot{display:inline-block;width:8px;height:8px;background:#4ade80;border-radius:50%;margin-right:6px;animation:blink 1.5s ease-in-out infinite;}
+  @keyframes blink{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(74,222,128,0.6);}50%{opacity:0.7;box-shadow:0 0 0 6px rgba(74,222,128,0);}}
+
+  /* LAYOUT */
+  .content{max-width:1400px;margin:0 auto;padding:32px 24px 64px;position:relative;z-index:1;}
+  .section-header{display:flex;align-items:center;gap:12px;margin-bottom:22px;margin-top:44px;}
+  .section-header:first-child{margin-top:0;}
+  .section-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+  .section-icon.red{background:rgba(232,25,44,0.1);} .section-icon.blue{background:rgba(26,47,110,0.1);}
+  .section-icon.gold{background:rgba(245,166,35,0.1);} .section-icon.green{background:rgba(22,163,74,0.1);}
+  .section-icon.purple{background:rgba(139,92,246,0.1);}
+  .section-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:var(--blue);}
+  .section-title span{color:var(--red);}
+  .section-subtitle{font-size:13px;color:var(--gray-300);margin-left:auto;font-weight:400;}
+
+  /* CARDS */
+  .card{background:white;border-radius:var(--radius);box-shadow:var(--shadow-sm);border:1px solid var(--gray-100);overflow:hidden;transition:box-shadow 0.3s,transform 0.3s;}
+  .card:hover{box-shadow:var(--shadow-md);transform:translateY(-1px);}
+  .card-header{padding:18px 20px 0;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:0.5px;display:flex;align-items:center;justify-content:space-between;}
+  .card-body{padding:16px 20px 20px;}
+
+  /* GRIDS */
+  .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  .grid-1-2{display:grid;grid-template-columns:1fr 2fr;gap:20px;}
+  .grid-2-1{display:grid;grid-template-columns:2fr 1fr;gap:20px;}
+
+  /* MINI STAT */
+  .mini-stat{background:white;border-radius:var(--radius);border:1px solid var(--gray-100);padding:20px;display:flex;align-items:center;gap:14px;transition:all 0.3s;}
+  .mini-stat:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);}
+  .mini-stat-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+  .mini-stat-num{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--gray-800);line-height:1;}
+  .mini-stat-lbl{font-size:12px;color:var(--gray-300);margin-top:2px;}
+  .mini-stat-change{margin-left:auto;font-size:12px;font-weight:600;padding:3px 8px;border-radius:6px;}
+  .change-up{background:rgba(22,163,74,0.1);color:var(--green);}
+
+  /* TEAM CARDS */
+  .team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;}
+  .team-card{background:white;border-radius:var(--radius);border:1px solid var(--gray-100);padding:18px 14px;text-align:center;transition:all 0.3s;position:relative;overflow:hidden;}
+  .team-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;}
+  .team-card.ec-president::before{background:linear-gradient(90deg,var(--red),var(--red-light));}
+  .team-card.ec-vp::before{background:linear-gradient(90deg,var(--blue-mid),var(--blue-light));}
+  .team-card.ec-il::before{background:linear-gradient(90deg,#8B5CF6,#A78BFA);}
+  .team-card.ec-lf::before{background:linear-gradient(90deg,var(--gold),#FBBF24);}
+  .team-card.intern-c::before{background:linear-gradient(90deg,var(--red),var(--red-light));}
+  .team-card.intern-i::before{background:linear-gradient(90deg,var(--blue-light),#60A5FA);}
+  .team-card.intern-e::before{background:linear-gradient(90deg,#8B5CF6,#A78BFA);}
+  .team-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);}
+  .team-avatar{width:50px;height:50px;border-radius:50%;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:18px;color:white;}
+  .ec-president .team-avatar{background:linear-gradient(135deg,var(--red),var(--red-dark));}
+  .ec-vp .team-avatar{background:linear-gradient(135deg,var(--blue-mid),var(--blue-light));}
+  .ec-il .team-avatar{background:linear-gradient(135deg,#8B5CF6,#7C3AED);}
+  .ec-lf .team-avatar{background:linear-gradient(135deg,var(--gold),#D97706);}
+  .intern-c .team-avatar{background:linear-gradient(135deg,#E8192C,#B5101F);}
+  .intern-i .team-avatar{background:linear-gradient(135deg,var(--blue-light),var(--blue-mid));}
+  .intern-e .team-avatar{background:linear-gradient(135deg,#8B5CF6,#6D28D9);}
+  .team-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--gray-800);margin-bottom:3px;}
+  .team-role{font-size:11px;color:var(--gray-600);margin-bottom:8px;line-height:1.4;}
+  .role-badge{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:0.4px;}
+  .ec-president .role-badge{background:rgba(232,25,44,0.1);color:var(--red);}
+  .ec-vp .role-badge{background:rgba(32,69,160,0.1);color:var(--blue-mid);}
+  .ec-il .role-badge{background:rgba(139,92,246,0.1);color:#7C3AED;}
+  .ec-lf .role-badge{background:rgba(245,166,35,0.1);color:#D97706;}
+  .intern-c .role-badge,.intern-i .role-badge,.intern-e .role-badge{background:var(--gray-100);color:var(--gray-600);}
+  .on-break-tag{font-size:9px;padding:2px 6px;border-radius:10px;background:rgba(245,166,35,0.12);color:#D97706;margin-top:4px;display:inline-block;}
+
+  /* PERF BADGES */
+  .perf-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:0.3px;}
+  .perf-O{background:rgba(22,163,74,0.1);color:var(--green);}
+  .perf-A{background:rgba(32,69,160,0.1);color:var(--blue-mid);}
+  .perf-B{background:rgba(245,166,35,0.12);color:#D97706;}
+
+  /* LEADERBOARD */
+  .leaderboard-table{width:100%;border-collapse:collapse;}
+  .leaderboard-table th{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--gray-300);padding:10px 14px;text-align:left;border-bottom:1px solid var(--gray-100);}
+  .leaderboard-table td{padding:11px 14px;font-size:13.5px;border-bottom:1px solid var(--gray-100);vertical-align:middle;}
+  .leaderboard-table tr:last-child td{border-bottom:none;}
+  .leaderboard-table tr:hover td{background:var(--gray-50);}
+  .rank-badge{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;}
+  .rank-1{background:linear-gradient(135deg,#F5A623,#D97706);color:white;}
+  .rank-2{background:linear-gradient(135deg,#9CA3AF,#6B7280);color:white;}
+  .rank-3{background:linear-gradient(135deg,#B45309,#92400E);color:white;}
+  .rank-other{background:var(--gray-100);color:var(--gray-600);}
+  .score-bar-wrap{width:70px;height:6px;background:var(--gray-100);border-radius:3px;overflow:hidden;}
+  .score-bar{height:100%;border-radius:3px;}
+  .score-bar.O{background:linear-gradient(90deg,var(--green),#4ade80);}
+  .score-bar.A{background:linear-gradient(90deg,var(--blue-light),#60A5FA);}
+  .score-bar.B{background:linear-gradient(90deg,var(--gold),#FBBF24);}
+
+  /* TASK */
+  .task-item{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--gray-100);}
+  .task-item:last-child{border-bottom:none;}
+  .task-status-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+  .status-not-started{background:var(--gray-300);}
+  .status-in-progress{background:var(--gold);animation:blink 1.5s infinite;}
+  .status-completed{background:var(--green);}
+  .task-info{flex:1;min-width:0;}
+  .task-name{font-size:13.5px;font-weight:500;color:var(--gray-800);}
+  .task-meta{font-size:11.5px;color:var(--gray-300);margin-top:2px;}
+  .task-badge{font-size:11px;font-weight:600;padding:3px 8px;border-radius:6px;white-space:nowrap;flex-shrink:0;}
+  .badge-not-started{background:var(--gray-100);color:var(--gray-600);}
+  .badge-in-progress{background:rgba(245,166,35,0.12);color:#D97706;}
+  .badge-completed{background:rgba(22,163,74,0.1);color:var(--green);}
+  .task-owner{font-size:11.5px;color:var(--gray-600);background:var(--gray-50);padding:3px 8px;border-radius:6px;white-space:nowrap;flex-shrink:0;}
+  .deadline-chip{font-size:11px;padding:2px 7px;border-radius:5px;flex-shrink:0;}
+  .deadline-ok{background:rgba(22,163,74,0.1);color:var(--green);}
+  .deadline-soon{background:rgba(245,166,35,0.12);color:#D97706;}
+  .deadline-overdue{background:rgba(232,25,44,0.1);color:var(--red);}
+
+  /* MONTHLY UPDATE */
+  .update-card{background:linear-gradient(135deg,var(--blue) 0%,var(--blue-mid) 100%);border-radius:var(--radius);padding:26px;color:white;position:relative;overflow:hidden;}
+  .update-card::after{content:'';position:absolute;right:-40px;bottom:-40px;width:180px;height:180px;background:radial-gradient(circle,rgba(255,255,255,0.06) 0%,transparent 70%);}
+  .update-month{font-family:'Syne',sans-serif;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.5);margin-bottom:6px;}
+  .update-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;margin-bottom:10px;line-height:1.3;}
+  .update-body{font-size:13.5px;color:rgba(255,255,255,0.78);line-height:1.7;position:relative;z-index:1;}
+  .achievement-list{list-style:none;display:flex;flex-direction:column;gap:8px;}
+  .achievement-list li{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--gray-800);padding:10px 14px;background:white;border-radius:var(--radius-sm);border:1px solid var(--gray-100);transition:all 0.2s;}
+  .achievement-list li:hover{border-color:var(--blue-pale);box-shadow:var(--shadow-sm);}
+  .achievement-list li::before{content:'✦';color:var(--red);font-size:11px;margin-top:1px;flex-shrink:0;}
+
+  /* EVENTS */
+  .event-item{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--gray-100);align-items:flex-start;}
+  .event-item:last-child{border-bottom:none;}
+  .event-date-box{background:var(--blue);border-radius:10px;padding:8px 10px;text-align:center;flex-shrink:0;min-width:48px;}
+  .event-day{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:white;line-height:1;}
+  .event-month{font-size:9px;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.5px;font-weight:600;}
+  .event-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--gray-800);margin-bottom:3px;}
+  .event-desc{font-size:12.5px;color:var(--gray-600);line-height:1.5;}
+  .event-tag{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:0.3px;margin-top:5px;}
+  .tag-upcoming{background:rgba(52,96,216,0.1);color:var(--blue-light);}
+  .tag-past{background:var(--gray-100);color:var(--gray-600);}
+  .tag-live{background:rgba(232,25,44,0.1);color:var(--red);}
+  .tag-tbd{background:rgba(245,166,35,0.1);color:#D97706;}
+
+  /* TABS */
+  .tabs{display:flex;gap:4px;margin-bottom:20px;background:var(--gray-100);border-radius:10px;padding:4px;}
+  .tab{flex:1;text-align:center;padding:8px 12px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.2s;color:var(--gray-600);border:none;background:transparent;font-family:'DM Sans',sans-serif;}
+  .tab.active{background:white;color:var(--blue);font-weight:600;box-shadow:var(--shadow-sm);}
+  .tab-pane{display:none;} .tab-pane.active{display:block;}
+
+  /* GOOGLE SHEETS */
+  .sheets-panel{background:white;border-radius:var(--radius);border:1px solid var(--gray-100);overflow:hidden;}
+  .sheets-header{background:linear-gradient(90deg,var(--green),#15803D);padding:16px 20px;display:flex;align-items:center;gap:12px;}
+  .sheets-icon{width:32px;height:32px;background:white;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:16px;}
+  .sheets-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:white;}
+  .sheets-body{padding:20px;}
+  .sheets-input-row{display:flex;gap:10px;margin-bottom:16px;}
+  .sheets-input{flex:1;border:1px solid var(--gray-100);border-radius:8px;padding:10px 14px;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--gray-800);outline:none;transition:border-color 0.2s;}
+  .sheets-input:focus{border-color:var(--blue-light);}
+  .btn{padding:10px 18px;border:none;border-radius:8px;font-family:'Syne',sans-serif;font-weight:600;font-size:13px;cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:6px;}
+  .btn-primary{background:var(--blue);color:white;} .btn-primary:hover{background:var(--blue-mid);transform:translateY(-1px);}
+  .sync-status{font-size:13px;color:var(--gray-600);padding:10px 14px;background:var(--gray-50);border-radius:8px;display:flex;align-items:center;gap:8px;}
+  .data-preview-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px;}
+  .data-preview-table th{background:var(--gray-50);padding:8px 12px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--gray-300);border-bottom:1px solid var(--gray-100);}
+  .data-preview-table td{padding:8px 12px;border-bottom:1px solid var(--gray-100);color:var(--gray-800);}
+  .data-preview-table tr:last-child td{border-bottom:none;}
+
+  footer{background:var(--blue);color:rgba(255,255,255,0.5);text-align:center;padding:20px 24px;font-size:12px;margin-top:32px;}
+  footer strong{color:rgba(255,255,255,0.8);}
+
+  /* ANIMATIONS */
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+  .fade-up{opacity:0;animation:fadeUp 0.5s ease forwards;}
+  .delay-1{animation-delay:0.1s;} .delay-2{animation-delay:0.2s;} .delay-3{animation-delay:0.3s;}
+
+  /* TEAM SECTION TABS */
+  .team-tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;}
+  .team-tab{padding:7px 16px;border-radius:20px;font-size:12.5px;font-weight:600;cursor:pointer;transition:all 0.2s;color:var(--gray-600);border:1.5px solid var(--gray-100);background:white;font-family:'DM Sans',sans-serif;}
+  .team-tab.active-c{background:var(--red);color:white;border-color:var(--red);}
+  .team-tab.active-i{background:var(--blue-mid);color:white;border-color:var(--blue-mid);}
+  .team-tab.active-e{background:#7C3AED;color:white;border-color:#7C3AED;}
+  .team-tab.active-ec{background:var(--blue);color:white;border-color:var(--blue);}
 
   /* scrollbar */
-  ::-webkit-scrollbar { width: 6px; height: 6px; }
-  ::-webkit-scrollbar-track { background: var(--gray-50); }
-  ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 3px; }
+  ::-webkit-scrollbar{width:6px;height:6px;} ::-webkit-scrollbar-track{background:var(--gray-50);}
+  ::-webkit-scrollbar-thumb{background:var(--gray-300);border-radius:3px;}
+
+  @media(max-width:900px){.grid-3{grid-template-columns:1fr 1fr;}.grid-4{grid-template-columns:1fr 1fr;}.grid-1-2,.grid-2-1{grid-template-columns:1fr;}}
+  @media(max-width:640px){nav{display:none;} nav.open{display:flex;flex-direction:column;position:absolute;top:64px;left:0;right:0;background:var(--blue);padding:16px;gap:4px;border-top:1px solid rgba(255,255,255,0.1);}.hamburger{display:flex;}.grid-2,.grid-3,.grid-4{grid-template-columns:1fr;}.hero-stats{gap:10px;}.header-badge{display:none;}.section-subtitle{display:none;}.leaderboard-table th:nth-child(5),.leaderboard-table td:nth-child(5){display:none;}}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
   <div class="header-inner">
     <div class="logo-area">
-      <img class="logo-badge" src="data:image/gif;base64,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" alt="ANON Global Foundation Logo">
-      <div class="logo-text">
-        <span class="logo-sub" style="font-size:12px; color:rgba(255,255,255,0.65); letter-spacing:0.3px">Internship Scrum Dashboard</span>
-      </div>
+      <img class="logo-img" src="data:image/gif;base64,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" alt="ANON Global Foundation">
+      <span class="logo-sub">Internship Scrum Dashboard · BTI 3</span>
     </div>
     <nav id="mainNav">
-      <a href="#overview" class="active">Overview</a>
+      <a href="#overview">Overview</a>
       <a href="#team">Team</a>
       <a href="#leaderboard">Leaderboard</a>
       <a href="#tasks">Tasks</a>
       <a href="#updates">Updates</a>
       <a href="#events">Events</a>
-      <a href="#data">Data</a>
+      <a href="#data">Data Sync</a>
     </nav>
-    <div class="header-badge">🔴 April 2026 Scrum</div>
-    <div class="hamburger" id="hamburger" onclick="toggleNav()">
-      <span></span><span></span><span></span>
-    </div>
+    <div class="header-badge">🔴 May 2026 Scrum</div>
+    <div class="hamburger" id="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
   </div>
 </header>
 
-<!-- HERO -->
 <section class="hero-strip">
   <div class="hero-inner">
     <div class="hero-text fade-up">
-      <h1>BTI-3 Monthly Scrum <span>Dashboard</span></h1>
-      <p>Sensitising Children, Adolescents & Youth on Wellbeing & Life Skills. Track intern progress, team milestones, and program health — all in one place.</p>
+      <h1>Monthly Scrum <span>Dashboard</span></h1>
+      <p>ANON Global Foundation · BTI 3 · Sensitising Children, Adolescents &amp; Youth on Wellbeing &amp; Life Skills.<br>April 2026 Scrum — Live Data</p>
     </div>
     <div class="hero-stats fade-up delay-2">
-      <div class="hero-stat" data-tooltip="Total enrolled interns this batch">
-        <span class="hero-stat-number count-num" data-target="0">0</span>
-        <span class="hero-stat-label">Total Interns</span>
-      </div>
-      <div class="hero-stat" data-tooltip="Currently active interns">
-        <span class="hero-stat-number"><span class="pulse-dot"></span><span class="count-num" data-target="0">0</span></span>
-        <span class="hero-stat-label">Active Interns</span>
-      </div>
-      <div class="hero-stat" data-tooltip="Tasks completed this month">
-        <span class="hero-stat-number count-num" data-target="0">0</span>
-        <span class="hero-stat-label">Tasks Done</span>
-      </div>
-      <div class="hero-stat" data-tooltip="Upcoming events">
-        <span class="hero-stat-number count-num" data-target="0">0</span>
-        <span class="hero-stat-label">Events</span>
-      </div>
+      <div class="hero-stat"><span class="hero-stat-number" id="h-total">48</span><span class="hero-stat-label">Total Interns</span></div>
+      <div class="hero-stat"><span class="hero-stat-number"><span class="pulse-dot"></span><span id="h-active">40</span></span><span class="hero-stat-label">Active Interns</span></div>
+      <div class="hero-stat"><span class="hero-stat-number" id="h-tasks">36</span><span class="hero-stat-label">Tasks Done</span></div>
+      <div class="hero-stat"><span class="hero-stat-number" id="h-events">3</span><span class="hero-stat-label">Events (April)</span></div>
     </div>
   </div>
 </section>
 
-<!-- MAIN CONTENT -->
 <main class="content">
 
-  <!-- NOTICE BANNER -->
-  <div class="notice-banner fade-up delay-1">
-    <span class="notice-icon">📋</span>
-    <span>This dashboard will be updated with live scrum data tonight. All sections are ready for data input after today's monthly scrum call. <strong>Last updated: Awaiting scrum data</strong></span>
-  </div>
+<!-- ═══════════════════ 1. OVERVIEW ═══════════════════ -->
+<div id="overview" class="section-header fade-up">
+  <div class="section-icon red">📊</div>
+  <h2 class="section-title">Dashboard <span>Overview</span></h2>
+  <span class="section-subtitle">BTI 3 · April 2026</span>
+</div>
 
-  <!-- ════════════════════════════════════
-       1. DASHBOARD OVERVIEW
-  ════════════════════════════════════ -->
-  <div id="overview" class="section-header fade-up">
-    <div class="section-icon red">📊</div>
-    <h2 class="section-title">Dashboard <span>Overview</span></h2>
-    <span class="section-subtitle">April 2026 • Monthly Scrum</span>
+<div class="grid-4 fade-up delay-1" style="margin-bottom:20px">
+  <div class="mini-stat">
+    <div class="mini-stat-icon" style="background:rgba(232,25,44,0.1);">👥</div>
+    <div><div class="mini-stat-num">48</div><div class="mini-stat-lbl">Total Interns</div></div>
+    <span class="mini-stat-change change-up">BTI 3</span>
   </div>
-
-  <div class="grid-4 fade-up delay-1" style="margin-bottom:20px">
-    <div class="mini-stat">
-      <div class="mini-stat-icon" style="background:rgba(232,25,44,0.1);">👥</div>
-      <div>
-        <div class="mini-stat-num count-num" data-target="0">0</div>
-        <div class="mini-stat-lbl">Total Interns</div>
-      </div>
-      <span class="mini-stat-change change-up">—</span>
-    </div>
-    <div class="mini-stat">
-      <div class="mini-stat-icon" style="background:rgba(22,163,74,0.1);">🟢</div>
-      <div>
-        <div class="mini-stat-num count-num" data-target="0">0</div>
-        <div class="mini-stat-lbl">Active Interns</div>
-      </div>
-      <span class="mini-stat-change change-up">—</span>
-    </div>
-    <div class="mini-stat">
-      <div class="mini-stat-icon" style="background:rgba(26,47,110,0.1);">✅</div>
-      <div>
-        <div class="mini-stat-num count-num" data-target="0">0</div>
-        <div class="mini-stat-lbl">Tasks Completed</div>
-      </div>
-      <span class="mini-stat-change change-up">—</span>
-    </div>
-    <div class="mini-stat">
-      <div class="mini-stat-icon" style="background:rgba(245,166,35,0.12);">🏆</div>
-      <div>
-        <div class="mini-stat-num count-num" data-target="0">0</div>
-        <div class="mini-stat-lbl">Outstanding Interns</div>
-      </div>
-      <span class="mini-stat-change change-up">—</span>
-    </div>
+  <div class="mini-stat">
+    <div class="mini-stat-icon" style="background:rgba(22,163,74,0.1);">🟢</div>
+    <div><div class="mini-stat-num">40</div><div class="mini-stat-lbl">Active Interns</div></div>
+    <span class="mini-stat-change change-up">83%</span>
   </div>
+  <div class="mini-stat">
+    <div class="mini-stat-icon" style="background:rgba(26,47,110,0.1);">🏛️</div>
+    <div><div class="mini-stat-num">23</div><div class="mini-stat-lbl">Active ECs</div></div>
+    <span class="mini-stat-change change-up">of 30</span>
+  </div>
+  <div class="mini-stat">
+    <div class="mini-stat-icon" style="background:rgba(245,166,35,0.12);">🏆</div>
+    <div><div class="mini-stat-num">13</div><div class="mini-stat-lbl">Outstanding (O)</div></div>
+    <span class="mini-stat-change change-up">27%</span>
+  </div>
+</div>
 
-  <!-- Progress overview -->
-  <div class="grid-2 fade-up delay-2">
-    <div class="card">
-      <div class="card-header">Task Completion Rate</div>
-      <div class="card-body" style="display:flex; gap:20px; align-items:center; flex-wrap:wrap">
-        <svg width="100" height="100" viewBox="0 0 100 100" style="flex-shrink:0">
-          <circle cx="50" cy="50" r="40" fill="none" stroke="var(--gray-100)" stroke-width="10"/>
-          <circle cx="50" cy="50" r="40" fill="none" stroke="var(--red)" stroke-width="10"
-            stroke-dasharray="251" stroke-dashoffset="251" stroke-linecap="round"
-            transform="rotate(-90 50 50)" id="taskRing" style="transition:stroke-dashoffset 1.2s ease"/>
-          <text x="50" y="54" text-anchor="middle" font-family="Syne" font-size="18" font-weight="800" fill="var(--gray-800)" id="taskPct">—</text>
-        </svg>
-        <div style="flex:1">
-          <div style="display:flex; flex-direction:column; gap:8px">
-            <div style="display:flex; justify-content:space-between; font-size:13px">
-              <span style="color:var(--gray-600)">Completed</span>
-              <strong id="stat-done">—</strong>
-            </div>
-            <div style="display:flex; justify-content:space-between; font-size:13px">
-              <span style="color:var(--gray-600)">In Progress</span>
-              <strong id="stat-prog">—</strong>
-            </div>
-            <div style="display:flex; justify-content:space-between; font-size:13px">
-              <span style="color:var(--gray-600)">Not Started</span>
-              <strong id="stat-todo">—</strong>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Performance Distribution</div>
-      <div class="card-body">
-        <div style="display:flex; flex-direction:column; gap:12px">
-          <div>
-            <div style="display:flex; justify-content:space-between; margin-bottom:4px; font-size:13px">
-              <span style="display:flex; align-items:center; gap:6px"><span class="perf-badge perf-O">O</span> Outstanding</span>
-              <span id="cnt-O" style="font-weight:600">—</span>
-            </div>
-            <div style="height:8px; background:var(--gray-100); border-radius:4px; overflow:hidden">
-              <div id="bar-O" style="height:100%; background:linear-gradient(90deg,var(--green),#4ade80); border-radius:4px; width:0%; transition:width 1s ease"></div>
-            </div>
-          </div>
-          <div>
-            <div style="display:flex; justify-content:space-between; margin-bottom:4px; font-size:13px">
-              <span style="display:flex; align-items:center; gap:6px"><span class="perf-badge perf-A">A</span> Active</span>
-              <span id="cnt-A" style="font-weight:600">—</span>
-            </div>
-            <div style="height:8px; background:var(--gray-100); border-radius:4px; overflow:hidden">
-              <div id="bar-A" style="height:100%; background:linear-gradient(90deg,var(--blue-light),#60A5FA); border-radius:4px; width:0%; transition:width 1s ease; transition-delay:0.2s"></div>
-            </div>
-          </div>
-          <div>
-            <div style="display:flex; justify-content:space-between; margin-bottom:4px; font-size:13px">
-              <span style="display:flex; align-items:center; gap:6px"><span class="perf-badge perf-B">B</span> Basic</span>
-              <span id="cnt-B" style="font-weight:600">—</span>
-            </div>
-            <div style="height:8px; background:var(--gray-100); border-radius:4px; overflow:hidden">
-              <div id="bar-B" style="height:100%; background:linear-gradient(90deg,var(--gold),#FBBF24); border-radius:4px; width:0%; transition:width 1s ease; transition-delay:0.4s"></div>
-            </div>
-          </div>
+<div class="grid-2 fade-up delay-2">
+  <div class="card">
+    <div class="card-header">Task Completion · April 2026</div>
+    <div class="card-body" style="display:flex;gap:20px;align-items:center;flex-wrap:wrap">
+      <svg width="100" height="100" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="40" fill="none" stroke="var(--gray-100)" stroke-width="10"/>
+        <circle cx="50" cy="50" r="40" fill="none" stroke="var(--red)" stroke-width="10"
+          stroke-dasharray="251" stroke-dashoffset="251" stroke-linecap="round"
+          transform="rotate(-90 50 50)" id="taskRing" style="transition:stroke-dashoffset 1.4s ease"/>
+        <text x="50" y="48" text-anchor="middle" font-family="Syne" font-size="16" font-weight="800" fill="var(--gray-800)">75%</text>
+        <text x="50" y="62" text-anchor="middle" font-family="DM Sans" font-size="9" fill="var(--gray-300)">36 of 48</text>
+      </svg>
+      <div style="flex:1">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--gray-600)">Interns with tasks</span><strong style="color:var(--green)">36</strong></div>
+          <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--gray-600)">No tasks submitted</span><strong style="color:#D97706">12</strong></div>
+          <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--gray-600)">Active ECs</span><strong style="color:var(--blue)">23 / 30</strong></div>
+          <div style="height:1px;background:var(--gray-100);margin:2px 0;"></div>
+          <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--gray-600)">Total Volunteers</span><strong>78 (48+30)</strong></div>
         </div>
       </div>
     </div>
   </div>
-
-
-  <!-- ════════════════════════════════════
-       2. TEAM STRUCTURE
-  ════════════════════════════════════ -->
-  <div id="team" class="section-header fade-up">
-    <div class="section-icon blue">🏛️</div>
-    <h2 class="section-title">Team <span>Structure</span></h2>
-    <span class="section-subtitle">Executive Council & Interns</span>
-  </div>
-
-  <div class="card fade-up delay-1" style="margin-bottom:12px">
-    <div class="card-header">Executive Council</div>
+  <div class="card">
+    <div class="card-header">Performance Distribution</div>
     <div class="card-body">
-      <div class="team-grid" id="teamGrid">
-
-        <!-- EC President (placeholder) -->
-        <div class="team-card ec-president">
-          <div class="team-avatar">—</div>
-          <div class="team-name">TBD</div>
-          <div class="team-role">Program lead, vision-setting, stakeholder relationships, final decisions</div>
-          <span class="role-badge">EC-President</span>
-        </div>
-
-        <!-- EC VP (placeholder) -->
-        <div class="team-card ec-vp">
-          <div class="team-avatar">—</div>
-          <div class="team-name">TBD</div>
-          <div class="team-role">Supports president, oversees cross-team coordination and intern welfare</div>
-          <span class="role-badge">EC Vice President</span>
-        </div>
-
-        <!-- EC Innovation Lead (placeholder) -->
-        <div class="team-card ec-innovation">
-          <div class="team-avatar">—</div>
-          <div class="team-name">TBD</div>
-          <div class="team-role">Drives new ideas, digital initiatives, and innovation projects within the program</div>
-          <span class="role-badge">Innovation Lead</span>
-        </div>
-
-        <!-- EC Leadership Facilitator (placeholder) -->
-        <div class="team-card ec-leadership">
-          <div class="team-avatar">—</div>
-          <div class="team-name">TBD</div>
-          <div class="team-role">Facilitates leadership workshops, mentors interns, builds a growth culture</div>
-          <span class="role-badge">Leadership Facilitator</span>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- Role legend -->
-  <div class="card fade-up delay-2">
-    <div class="card-header">Role Clarity</div>
-    <div class="card-body">
-      <div class="grid-2">
-        <div style="display:flex; flex-direction:column; gap:10px">
-          <div style="padding:12px 14px; border-left:3px solid var(--red); background:rgba(232,25,44,0.04); border-radius:0 8px 8px 0">
-            <div style="font-family:'Syne',sans-serif; font-size:13px; font-weight:700; color:var(--blue); margin-bottom:3px">EC-President</div>
-            <div style="font-size:12px; color:var(--gray-600)">Sets program vision, manages external partnerships, approves key decisions and represents ANON at the highest level.</div>
-          </div>
-          <div style="padding:12px 14px; border-left:3px solid var(--blue-light); background:rgba(52,96,216,0.04); border-radius:0 8px 8px 0">
-            <div style="font-family:'Syne',sans-serif; font-size:13px; font-weight:700; color:var(--blue); margin-bottom:3px">EC Vice President</div>
-            <div style="font-size:12px; color:var(--gray-600)">Handles day-to-day operations, cross-team alignment, intern performance monitoring and overall program continuity.</div>
-          </div>
-        </div>
-        <div style="display:flex; flex-direction:column; gap:10px">
-          <div style="padding:12px 14px; border-left:3px solid #8B5CF6; background:rgba(139,92,246,0.04); border-radius:0 8px 8px 0">
-            <div style="font-family:'Syne',sans-serif; font-size:13px; font-weight:700; color:var(--blue); margin-bottom:3px">Innovation Lead</div>
-            <div style="font-size:12px; color:var(--gray-600)">Leads digital transformation, new project initiatives, creative campaigns, and tech-driven wellbeing tools within the team.</div>
-          </div>
-          <div style="padding:12px 14px; border-left:3px solid var(--gold); background:rgba(245,166,35,0.06); border-radius:0 8px 8px 0">
-            <div style="font-family:'Syne',sans-serif; font-size:13px; font-weight:700; color:var(--blue); margin-bottom:3px">Leadership Facilitator</div>
-            <div style="font-size:12px; color:var(--gray-600)">Runs leadership development workshops, mentors interns individually, evaluates growth and fosters a culture of ownership.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Interns placeholder -->
-  <div class="card fade-up delay-3" style="margin-top:16px">
-    <div class="card-header">Interns <span style="font-size:12px; color:var(--gray-300); font-weight:400; text-transform:none; letter-spacing:0; font-family:'DM Sans',sans-serif">— Awaiting scrum data</span></div>
-    <div class="card-body">
-      <div id="internsGrid" class="team-grid">
-        <div style="grid-column:1/-1; text-align:center; padding:32px; color:var(--gray-300); font-size:14px">
-          🌟 Intern names and details will appear here after data is provided tonight.
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ════════════════════════════════════
-       3. INTERN LEADERBOARD
-  ════════════════════════════════════ -->
-  <div id="leaderboard" class="section-header fade-up">
-    <div class="section-icon gold">🏆</div>
-    <h2 class="section-title">Intern <span>Leaderboard</span></h2>
-    <span class="section-subtitle">Based on monthly performance</span>
-  </div>
-
-  <div class="card fade-up delay-1">
-    <div class="card-header" style="padding:18px 20px 12px">
-      Rankings
-      <div style="display:flex; gap:6px">
-        <span class="perf-badge perf-O">O = Outstanding</span>
-        <span class="perf-badge perf-A">A = Active</span>
-        <span class="perf-badge perf-B">B = Basic</span>
-      </div>
-    </div>
-    <div style="overflow-x:auto">
-      <table class="leaderboard-table" id="leaderboardTable">
-        <thead>
-          <tr>
-            <th style="width:48px">Rank</th>
-            <th>Intern Name</th>
-            <th>Category</th>
-            <th>Score</th>
-            <th>Tasks Done</th>
-            <th>Highlights</th>
-          </tr>
-        </thead>
-        <tbody id="leaderboardBody">
-          <tr>
-            <td colspan="6" style="text-align:center; padding:32px; color:var(--gray-300)">
-              🏅 Leaderboard will be populated after tonight's scrum call.
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-
-  <!-- ════════════════════════════════════
-       4. TASK MANAGEMENT
-  ════════════════════════════════════ -->
-  <div id="tasks" class="section-header fade-up">
-    <div class="section-icon blue">📋</div>
-    <h2 class="section-title">Task <span>Management</span></h2>
-    <span class="section-subtitle">May 2026 Sprint</span>
-  </div>
-
-  <div class="card fade-up delay-1">
-    <div class="card-header" style="padding:18px 20px 12px; align-items:center">
-      Task List
-      <div style="display:flex; gap:8px; flex-wrap:wrap">
-        <span style="font-size:11px; font-weight:500; padding:3px 8px; border-radius:6px; background:var(--gray-100); color:var(--gray-600); display:flex; align-items:center; gap:4px"><span style="width:8px;height:8px;background:var(--gray-300);border-radius:50%;display:inline-block"></span>Not Started</span>
-        <span style="font-size:11px; font-weight:500; padding:3px 8px; border-radius:6px; background:rgba(245,166,35,0.1); color:#D97706; display:flex; align-items:center; gap:4px"><span style="width:8px;height:8px;background:var(--gold);border-radius:50%;display:inline-block"></span>In Progress</span>
-        <span style="font-size:11px; font-weight:500; padding:3px 8px; border-radius:6px; background:rgba(22,163,74,0.1); color:var(--green); display:flex; align-items:center; gap:4px"><span style="width:8px;height:8px;background:var(--green);border-radius:50%;display:inline-block"></span>Completed</span>
-      </div>
-    </div>
-    <div class="card-body" id="taskList">
-      <!-- Placeholder tasks — will be replaced with real data -->
-      <div class="task-item">
-        <div class="task-status-dot status-not-started"></div>
-        <div class="task-info">
-          <div class="task-name">Monthly Teams Progress</div>
-          <div class="task-meta">Content, Anonathan, Events, Podcasts, Talks, etc</div>
-        </div>
-        <span class="task-owner">TBD</span>
-        <span class="task-badge badge-not-started">Not Started</span>
-        <span class="deadline-chip deadline-ok">May 15</span>
-      </div>
-      <div class="task-item">
-        <div class="task-status-dot status-not-started"></div>
-        <div class="task-info">
-          <div class="task-name">Workshop Session Graphics & Reels</div>
-          <div class="task-meta">Documentation</div>
-        </div>
-        <span class="task-owner">TBD</span>
-        <span class="task-badge badge-not-started">Not Started</span>
-        <span class="deadline-chip deadline-ok">May 20</span>
-      </div>
-      <div class="task-item">
-        <div class="task-status-dot status-not-started"></div>
-        <div class="task-info">
-          <div class="task-name">Social Media Content Calendar</div>
-          <div class="task-meta">Marketing & Outreach</div>
-        </div>
-        <span class="task-owner">TBD</span>
-        <span class="task-badge badge-not-started">Not Started</span>
-        <span class="deadline-chip deadline-ok">May 25</span>
-      </div>
-      <div class="task-item">
-        <div class="task-status-dot status-not-started"></div>
-        <div class="task-info">
-          <div class="task-name">Intern Progress Report</div>
-          <div class="task-meta">Administration</div>
-        </div>
-        <span class="task-owner">TBD</span>
-        <span class="task-badge badge-not-started">Not Started</span>
-        <span class="deadline-chip deadline-ok">May 31</span>
-      </div>
-      <div style="margin-top:8px; padding:10px 0 0; text-align:center; font-size:13px; color:var(--gray-300)">
-        ✏️ Task owners, statuses, and deadlines will be updated after tonight's scrum.
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ════════════════════════════════════
-       5. MONTHLY UPDATES
-  ════════════════════════════════════ -->
-  <div id="updates" class="section-header fade-up">
-    <div class="section-icon red">📰</div>
-    <h2 class="section-title">Monthly <span>Updates</span></h2>
-    <span class="section-subtitle">May 2026</span>
-  </div>
-
-  <div class="grid-2-1 fade-up delay-1">
-    <div class="update-card">
-      <div class="update-month">📅 May 2026 — Monthly Scrum Summary</div>
-      <div class="update-title">This month's highlights will be added tonight after the scrum call.</div>
-      <div class="update-body">
-        ANON Global Foundation continues its mission of sensitising children, adolescents, youth, teachers and parents on wellbeing and life skills. Our internship program empowers passionate volunteers to drive impact through workshops, digital outreach, and community engagement.<br><br>
-        <em>📝 Check back tonight — the scrum summary, key decisions, and team updates will appear here.</em>
-      </div>
-    </div>
-    <div class="card" style="box-shadow:none">
-      <div class="card-header">Achievements & Highlights</div>
-      <div class="card-body">
-        <ul class="achievement-list" id="achievementList">
-          <li>Awaiting scrum highlights — to be updated tonight</li>
-          <li>Intern completions and recognitions TBD</li>
-          <li>Workshop & event outcomes to be added</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ════════════════════════════════════
-       6. EVENTS SECTION
-  ════════════════════════════════════ -->
-  <div id="events" class="section-header fade-up">
-    <div class="section-icon purple">🗓️</div>
-    <h2 class="section-title">Events <span>Calendar</span></h2>
-    <span class="section-subtitle">Upcoming & Past</span>
-  </div>
-
-  <div class="card fade-up delay-1">
-    <div class="card-body" style="padding-top:16px">
-      <!-- Tabs -->
-      <div class="tabs">
-        <button class="tab active" onclick="switchTab('upcoming')">🔜 Upcoming</button>
-        <button class="tab" onclick="switchTab('past')">📁 Past Events</button>
-      </div>
-
-      <div id="tab-upcoming" class="tab-pane active">
-        <div id="upcomingEvents">
-          <div class="event-item">
-            <div class="event-date-box" style="background:var(--red)">
-              <div class="event-day">—</div>
-              <div class="event-month">TBD</div>
-            </div>
-            <div class="event-info">
-              <div class="event-name">Monthly Scrum Call — May 2026</div>
-              <div class="event-desc">Team alignment, leaderboard review, task sprint planning, and intern recognition.</div>
-              <span class="event-tag tag-live">🔴 Today</span>
-            </div>
-          </div>
-          <div class="event-item">
-            <div class="event-date-box">
-              <div class="event-day">—</div>
-              <div class="event-month">TBD</div>
-            </div>
-            <div class="event-info">
-              <div class="event-name">ANON Workshop Session</div>
-              <div class="event-desc">Life skills & wellbeing sensitization session — details to be confirmed after scrum.</div>
-              <span class="event-tag tag-upcoming">Upcoming</span>
-            </div>
-          </div>
-          <div style="margin-top:16px; font-size:13px; color:var(--gray-300); text-align:center">
-            📌 Full event calendar will be updated tonight.
-          </div>
-        </div>
-      </div>
-
-      <div id="tab-past" class="tab-pane">
-        <div id="pastEvents">
-          <div class="event-item">
-            <div class="event-date-box" style="background:var(--gray-600)">
-              <div class="event-day">—</div>
-              <div class="event-month">APR</div>
-            </div>
-            <div class="event-info">
-              <div class="event-name">April Monthly Scrum</div>
-              <div class="event-desc">Previous month's performance review and planning session.</div>
-              <span class="event-tag tag-past">Completed</span>
-            </div>
-          </div>
-          <div style="margin-top:16px; font-size:13px; color:var(--gray-300); text-align:center">
-            📁 Past event summaries and outcomes to be populated.
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ════════════════════════════════════
-       7. DATA INTEGRATION (Google Sheets)
-  ════════════════════════════════════ -->
-  <div id="data" class="section-header fade-up">
-    <div class="section-icon green">🔗</div>
-    <h2 class="section-title">Data <span>Integration</span></h2>
-    <span class="section-subtitle">Google Sheets Sync</span>
-  </div>
-
-  <div class="fade-up delay-1">
-    <div class="sheets-panel">
-      <div class="sheets-header">
-        <div class="sheets-icon">📊</div>
+      <div style="display:flex;flex-direction:column;gap:12px">
         <div>
-          <div class="sheets-title">Google Sheets Integration</div>
-          <div style="font-size:12px; color:rgba(255,255,255,0.7)">Connect your scrum data sheet to auto-populate the dashboard</div>
-        </div>
-        <div style="margin-left:auto">
-          <button class="btn" style="background:rgba(255,255,255,0.15); color:white; border:1px solid rgba(255,255,255,0.25)">
-            ⚙️ Configure
-          </button>
-        </div>
-      </div>
-      <div class="sheets-body">
-        <div class="sheets-input-row">
-          <input type="text" class="sheets-input" id="sheetsUrl" placeholder="Paste your published Google Sheets CSV URL here...">
-          <button class="btn btn-primary" onclick="syncSheets()">🔄 Sync Data</button>
-        </div>
-        <div class="sync-status" id="syncStatus">
-          <span>⏳</span>
-          <span>No sheet connected yet. Share your Google Sheet as CSV (File → Share → Publish to web → CSV) and paste the link above.</span>
-        </div>
-        <div id="sheetPreview" style="display:none; margin-top:16px">
-          <div style="font-family:'Syne',sans-serif; font-size:13px; font-weight:700; color:var(--blue); margin-bottom:10px">Data Preview</div>
-          <div style="overflow-x:auto">
-            <table class="data-preview-table" id="previewTable"></table>
+          <div style="display:flex;justify-content:space-between;margin-bottom:5px;font-size:13px">
+            <span style="display:flex;align-items:center;gap:6px"><span class="perf-badge perf-O">O</span>Outstanding</span><span style="font-weight:700;color:var(--green)">13 interns</span>
           </div>
+          <div style="height:8px;background:var(--gray-100);border-radius:4px;overflow:hidden"><div style="height:100%;background:linear-gradient(90deg,var(--green),#4ade80);border-radius:4px;width:27%"></div></div>
         </div>
-
-        <div style="margin-top:20px; padding-top:16px; border-top:1px solid var(--gray-100)">
-          <div style="font-family:'Syne',sans-serif; font-size:13px; font-weight:700; color:var(--blue); margin-bottom:10px">💡 How to use this dashboard</div>
-          <div class="grid-3" style="gap:12px">
-            <div style="padding:14px; background:var(--gray-50); border-radius:10px; font-size:12px; color:var(--gray-600)">
-              <div style="font-weight:700; color:var(--gray-800); margin-bottom:4px">1. After Scrum Call</div>
-              Share the data you want to update — names, scores, tasks, events, and highlights.
-            </div>
-            <div style="padding:14px; background:var(--gray-50); border-radius:10px; font-size:12px; color:var(--gray-600)">
-              <div style="font-weight:700; color:var(--gray-800); margin-bottom:4px">2. Google Sheets Sync</div>
-              Publish your Google Sheet as CSV, paste the URL above, and hit Sync Data.
-            </div>
-            <div style="padding:14px; background:var(--gray-50); border-radius:10px; font-size:12px; color:var(--gray-600)">
-              <div style="font-weight:700; color:var(--gray-800); margin-bottom:4px">3. Instant Update</div>
-              All sections — leaderboard, tasks, team, events — update automatically from your sheet.
-            </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:5px;font-size:13px">
+            <span style="display:flex;align-items:center;gap:6px"><span class="perf-badge perf-A">A</span>Active</span><span style="font-weight:700;color:var(--blue-mid)">21 interns</span>
           </div>
+          <div style="height:8px;background:var(--gray-100);border-radius:4px;overflow:hidden"><div style="height:100%;background:linear-gradient(90deg,var(--blue-light),#60A5FA);border-radius:4px;width:44%"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:5px;font-size:13px">
+            <span style="display:flex;align-items:center;gap:6px"><span class="perf-badge perf-B">B</span>Basic</span><span style="font-weight:700;color:#D97706">14 interns</span>
+          </div>
+          <div style="height:8px;background:var(--gray-100);border-radius:4px;overflow:hidden"><div style="height:100%;background:linear-gradient(90deg,var(--gold),#FBBF24);border-radius:4px;width:29%"></div></div>
+        </div>
+        <div style="margin-top:4px;padding:10px 12px;background:var(--blue-pale);border-radius:8px;font-size:12px;color:var(--blue-mid)">
+          🌟 <strong>VOM April:</strong> Ridhima Singh, Ekta Ranjan, Saanvi Prasad, Devya Kheterpal, Kavish Dogra, Angel Kapoor &amp; Ridhima Patawat
         </div>
       </div>
     </div>
   </div>
+</div>
+
+<!-- ═══════════════════ 2. TEAM STRUCTURE ═══════════════════ -->
+<div id="team" class="section-header fade-up">
+  <div class="section-icon blue">🏛️</div>
+  <h2 class="section-title">Team <span>Structure</span></h2>
+  <span class="section-subtitle">Executive Council + Intern Teams</span>
+</div>
+
+<!-- EC Section -->
+<div class="card fade-up delay-1" style="margin-bottom:16px">
+  <div class="card-header">Executive Council <span style="font-size:11px;font-weight:400;color:var(--gray-300);text-transform:none;letter-spacing:0;font-family:'DM Sans',sans-serif;">30 ECs · 23 Active</span></div>
+  <div class="card-body">
+    <div class="team-grid">
+      <div class="team-card ec-president"><div class="team-avatar">SP</div><div class="team-name">Siddhant Pradhan</div><div class="team-role">Program vision, stakeholder relations, final decisions</div><span class="role-badge">EC-President</span></div>
+      <div class="team-card ec-vp"><div class="team-avatar">AS</div><div class="team-name">Alpesh Saxena</div><div class="team-role">Operations, cross-team alignment, intern welfare</div><span class="role-badge">EC-Vice President</span></div>
+      <div class="team-card ec-vp"><div class="team-avatar">JS</div><div class="team-name">Jiya Singh</div><div class="team-role">Video editing lead, cross-team VP support</div><span class="role-badge">EC-Vice President</span></div>
+      <div class="team-card ec-vp"><div class="team-avatar">BG</div><div class="team-name">Bhaskar Gupta</div><div class="team-role">Program continuity &amp; coordination</div><span class="role-badge">EC-Vice President</span></div>
+      <div class="team-card ec-lf"><div class="team-avatar">IA</div><div class="team-name">Ila Arun Marwaha</div><div class="team-role">Leadership workshops, intern growth &amp; mentoring</div><span class="role-badge">EC-LF</span></div>
+      <div class="team-card ec-lf"><div class="team-avatar">TS</div><div class="team-name">Tanmay Sharma</div><div class="team-role">Anonotsav segment facilitation, mentoring</div><span class="role-badge">EC-LF</span></div>
+      <div class="team-card ec-lf"><div class="team-avatar">PK</div><div class="team-name">Preeti Kapse</div><div class="team-role">Facilitates impact team &amp; video editing</div><span class="role-badge">EC-LF</span></div>
+      <div class="team-card ec-lf"><div class="team-avatar">HY</div><div class="team-name">Himanshi Yadav</div><div class="team-role">Expression &amp; connect team facilitation</div><span class="role-badge">EC-LF</span></div>
+      <div class="team-card ec-lf" style="opacity:0.7"><div class="team-avatar">AJ</div><div class="team-name">Akshita Jain</div><div class="team-role">On break: 10th May – 6th June</div><span class="role-badge">EC-LF</span><div><span class="on-break-tag">On Break</span></div></div>
+      <div class="team-card ec-lf" style="opacity:0.7"><div class="team-avatar">PB</div><div class="team-name">Pratham Bhargava</div><div class="team-role">On break: 10th May – 6th June</div><span class="role-badge">EC-LF</span><div><span class="on-break-tag">On Break</span></div></div>
+      <div class="team-card ec-lf" style="opacity:0.7"><div class="team-avatar">AM</div><div class="team-name">Anandita Mahajan</div><div class="team-role">On break: 9th – 30th May</div><span class="role-badge">EC-LF</span><div><span class="on-break-tag">On Break</span></div></div>
+    </div>
+    <div style="margin-top:16px;padding:12px 14px;background:var(--gray-50);border-radius:10px;font-size:12.5px;color:var(--gray-600)">
+      <strong style="color:var(--blue)">Innovation Leads (EC-IL) :</strong> Yashika Bindal · Mahi Chauhan · Srijan Pradhan · Rahul Gupta · Ishanvi Sharma · Srishti Juneja · Pooja Jangid · Roshni Purohit · Pooja Kapse · Ashmit Tamoli · Chhavi Sharma · Swastika Jaiswal · Navya Agarwal · Abhishek Singh Baghel · Ridhima Gupta &nbsp;|&nbsp; <span style="color:#D97706">On Break:</span> Tanushka Joshi · Tripti · Yuvakshi Goswami · Maanya Jaitly
+    </div>
+  </div>
+</div>
+
+<!-- Intern Teams -->
+<div class="card fade-up delay-2">
+  <div class="card-header">Intern Teams <span style="font-size:11px;font-weight:400;color:var(--gray-300);text-transform:none;letter-spacing:0;font-family:'DM Sans',sans-serif;">48 Interns · 40 Active</span></div>
+  <div class="card-body">
+    <div class="team-tabs">
+      <button class="team-tab active-c" onclick="switchTeam('connect')">🔴 Team Connect (23)</button>
+      <button class="team-tab" onclick="switchTeam('impact')">🔵 Team Impact (13)</button>
+      <button class="team-tab" onclick="switchTeam('expression')">🟣 Team Expression (12)</button>
+    </div>
+
+    <div id="team-connect" class="tab-pane active">
+      <div class="team-grid">
+        <div class="team-card intern-c"><div class="team-avatar">KP</div><div class="team-name">Kyra Puri</div><div class="team-role">Graphics · Reels · Content · News Bulletin lead</div><span class="role-badge">Team Connect</span><div><span class="perf-badge perf-O" style="margin-top:6px;font-size:9px">O</span></div></div>
+        <div class="team-card intern-c"><div class="team-avatar">KD</div><div class="team-name">Kavish Dogra</div><div class="team-role">2 content · 2 reels · Anonathan</div><span class="role-badge">Team Connect</span><div><span class="perf-badge perf-O" style="margin-top:6px;font-size:9px">O</span></div></div>
+        <div class="team-card intern-c"><div class="team-avatar">RP</div><div class="team-name">Ridhima Patawat</div><div class="team-role">5 reels · Fellowship moderation · Anonotsav video</div><span class="role-badge">Team Connect</span><div><span class="perf-badge perf-O" style="margin-top:6px;font-size:9px">O</span></div></div>
+        <div class="team-card intern-c"><div class="team-avatar">SP</div><div class="team-name">Saanvi Prasad</div><div class="team-role">2 reels · 7 fellowship videos · Anonotsav video · 1 graphic</div><span class="role-badge">Team Connect</span><div><span class="perf-badge perf-O" style="margin-top:6px;font-size:9px">O</span></div></div>
+        <div class="team-card intern-c"><div class="team-avatar">AK</div><div class="team-name">Angel Kapoor</div><div class="team-role">3 content · 1 graphic · Anonotsav hosting</div><span class="role-badge">Team Connect</span><div><span class="perf-badge perf-O" style="margin-top:6px;font-size:9px">O</span></div></div>
+        <div class="team-card intern-c"><div class="team-avatar">DK</div><div class="team-name">Devya Kheterpal</div><div class="team-role">3 content · news bulletin script · Anonathan</div><span class="role-badge">Team Connect</span><div><span class="perf-badge perf-O" style="margin-top:6px;font-size:9px">O</span></div></div>
+        <div class="team-card intern-c"><div class="team-avatar">T</div><div class="team-name">Taruna</div><div class="team-role">3 graphics · Anonathan attendee</div><span class="role-badge">Team Connect</span><div><span class="perf-badge perf-A" style="margin-top:6px;font-size:9px">A</span></div></div>
+        <div class="team-card intern-c"><div class="team-avatar">DS</div><div class="team-name">Diya Sharma</div><div class="team-role">2 graphics</div><span class="role-badge">Team Connect</span><div><span class="perf-badge perf-A" style="margin-top:6px;font-size:9px">A</span></div></div>
+        <div class="team-card intern-c"><div class="team-avatar">DC</div><div class="team-name">Drishti Chandak</div><div class="team-role">1 blog · Anonotsav social media support</div><span class="role-badge">Team Connect</span><div><span class="perf-badge perf-A" style="margin-top:6px;font-size:9px">A</span></div></div>
+        <div class="team-card intern-c"><div class="team-avatar">KR</div><div class="team-name">Krisha Dubey</div><div class="team-role">News bulletin script</div><span class="role-badge">Team Connect</span><div><span class="perf-badge perf-A" style="margin-top:6px;font-size:9px">A</span></div></div>
+        <div class="team-card intern-c"><div class="team-avatar">KH</div><div class="team-name">Khushi</div><div class="team-role">Anonathan winner reel · news bulletin coordination</div><span class="role-badge">Team Connect</span><div><span class="perf-badge perf-A" style="margin-top:6px;font-size:9px">A</span></div></div>
+        <div class="team-card intern-c"><div class="team-avatar">AY</div><div class="team-name">Aayushi</div><div class="team-role">3 content · Anonathan attendee</div><span class="role-badge">Team Connect</span><div><span class="perf-badge perf-A" style="margin-top:6px;font-size:9px">A</span></div></div>
+        <div class="team-card intern-c"><div class="team-avatar">DY</div><div class="team-name">Deepshikha Yadav</div><div class="team-role">2 content</div><span class="role-badge">Team Connect</span><div><span class="perf-badge perf-A" style="margin-top:6px;font-size:9px">A</span></div></div>
+        <div class="team-card intern-c"><div class="team-avatar">HY</div><div class="team-name">Harshita Yadav</div><div class="team-role">2 content · 2 graphics · school workshop</div><span class="role-badge">Team Connect</span><div><span class="perf-badge perf-A" style="margin-top:6px;font-size:9px">A</span></div></div>
+        <div class="team-card intern-c"><div class="team-avatar">TY</div><div class="team-name">Tanya Sharma</div><div class="team-role">1 graphic · Anonathan attendee</div><span class="role-badge">Team Connect</span><div><span class="perf-badge perf-A" style="margin-top:6px;font-size:9px">A</span></div></div>
+        <div class="team-card intern-c"><div class="team-avatar">KS</div><div class="team-name">Krish Sethi</div><div class="team-role">News bulletin coordination</div><span class="role-badge">Team Connect</span><div><span class="perf-badge perf-A" style="margin-top:6px;font-size:9px">A</span></div></div>
+        <div class="team-card intern-c" style="opacity:0.65"><div class="team-avatar">AG</div><div class="team-name">Aarshav Goyal</div><div class="team-role">Mahavir Senior Model School</div><span class="role-badge">Team Connect</span><div><span class="perf-badge perf-B" style="margin-top:6px;font-size:9px">B</span></div></div>
+        <div class="team-card intern-c" style="opacity:0.65"><div class="team-avatar">AA</div><div class="team-name">Anant Agarwal</div><div class="team-role">Modern Vidya Niketan</div><span class="role-badge">Team Connect</span><div><span class="perf-badge perf-B" style="margin-top:6px;font-size:9px">B</span></div></div>
+        <div class="team-card intern-c" style="opacity:0.55"><div class="team-avatar">MK</div><div class="team-name">Mukul Kumar</div><div class="team-role">DTU · Inactive</div><span class="role-badge">Team Connect</span><div><span class="perf-badge perf-B" style="margin-top:6px;font-size:9px">B</span></div></div>
+        <div class="team-card intern-c" style="opacity:0.65"><div class="team-avatar">MS</div><div class="team-name">Muskan</div><div class="team-role">JNV Gurugram</div><span class="role-badge">Team Connect</span><div><span class="perf-badge perf-B" style="margin-top:6px;font-size:9px">B</span></div></div>
+        <div class="team-card intern-c" style="opacity:0.65"><div class="team-avatar">SG</div><div class="team-name">Srajal Goutam</div><div class="team-role">Zakir Hussain College, DU</div><span class="role-badge">Team Connect</span><div><span class="perf-badge perf-B" style="margin-top:6px;font-size:9px">B</span></div></div>
+        <div class="team-card intern-c" style="opacity:0.65"><div class="team-avatar">DV</div><div class="team-name">Divyanshi Kumari</div><div class="team-role">1 content</div><span class="role-badge">Team Connect</span><div><span class="perf-badge perf-B" style="margin-top:6px;font-size:9px">B</span></div></div>
+        <div class="team-card intern-c" style="opacity:0.55"><div class="team-avatar">YG</div><div class="team-name">Yuvraj Gupta</div><div class="team-role">Suncity School · Inactive</div><span class="role-badge">Team Connect</span><div><span class="perf-badge perf-B" style="margin-top:6px;font-size:9px">B</span></div></div>
+      </div>
+    </div>
+
+    <div id="team-impact" class="tab-pane">
+      <div class="team-grid">
+        <div class="team-card intern-i"><div class="team-avatar">ER</div><div class="team-name">Ekta Ranjan</div><div class="team-role">Anonotsav moderation + registration · school workshop · Anonathan</div><span class="role-badge">Team Impact</span><div><span class="perf-badge perf-O" style="margin-top:6px;font-size:9px">O</span></div></div>
+        <div class="team-card intern-i"><div class="team-avatar">ST</div><div class="team-name">Shweta Tolia</div><div class="team-role">Anonotsav registration · Canva moderation team</div><span class="role-badge">Team Impact</span><div><span class="perf-badge perf-O" style="margin-top:6px;font-size:9px">O</span></div></div>
+        <div class="team-card intern-i"><div class="team-avatar">RS</div><div class="team-name">Renee Sharma</div><div class="team-role">Anonotsav registration + calling &amp; invites</div><span class="role-badge">Team Impact</span><div><span class="perf-badge perf-O" style="margin-top:6px;font-size:9px">O</span></div></div>
+        <div class="team-card intern-i"><div class="team-avatar">LD</div><div class="team-name">Lalita Dubey</div><div class="team-role">Anonotsav registration · Anonathan · school workshop</div><span class="role-badge">Team Impact</span><div><span class="perf-badge perf-O" style="margin-top:6px;font-size:9px">O</span></div></div>
+        <div class="team-card intern-i"><div class="team-avatar">AP</div><div class="team-name">Aparna Sharma</div><div class="team-role">Anonotsav reg + video team + calling · Anonathan · workshop</div><span class="role-badge">Team Impact</span><div><span class="perf-badge perf-O" style="margin-top:6px;font-size:9px">O</span></div></div>
+        <div class="team-card intern-i"><div class="team-avatar">RA</div><div class="team-name">Reyansh Arora</div><div class="team-role">Anonotsav registration · Canva social media team</div><span class="role-badge">Team Impact</span><div><span class="perf-badge perf-A" style="margin-top:6px;font-size:9px">A</span></div></div>
+        <div class="team-card intern-i"><div class="team-avatar">AG</div><div class="team-name">Aagam Gupta</div><div class="team-role">Educators Chronicles hosting · fellowship technicals · PU Delhi</div><span class="role-badge">Team Impact</span><div><span class="perf-badge perf-A" style="margin-top:6px;font-size:9px">A</span></div></div>
+        <div class="team-card intern-i"><div class="team-avatar">BP</div><div class="team-name">Bhumi Parewa</div><div class="team-role">Anonotsav runner · Upscale Birds home · Anonathan</div><span class="role-badge">Team Impact</span><div><span class="perf-badge perf-A" style="margin-top:6px;font-size:9px">A</span></div></div>
+        <div class="team-card intern-i" style="opacity:0.65"><div class="team-avatar">PT</div><div class="team-name">Paarth Taneja</div><div class="team-role">Upscale - Photoframe</div><span class="role-badge">Team Impact</span><div><span class="perf-badge perf-B" style="margin-top:6px;font-size:9px">B</span></div></div>
+        <div class="team-card intern-i" style="opacity:0.55"><div class="team-avatar">SG</div><div class="team-name">Shreya Gupta</div><div class="team-role">Suncity School · Inactive</div><span class="role-badge">Team Impact</span><div><span class="perf-badge perf-B" style="margin-top:6px;font-size:9px">B</span></div></div>
+        <div class="team-card intern-i" style="opacity:0.55"><div class="team-avatar">RH</div><div class="team-name">Ruhaan Sharma</div><div class="team-role">Suncity School · Inactive</div><span class="role-badge">Team Impact</span><div><span class="perf-badge perf-B" style="margin-top:6px;font-size:9px">B</span></div></div>
+        <div class="team-card intern-i" style="opacity:0.55"><div class="team-avatar">SN</div><div class="team-name">Sneha Gupta</div><div class="team-role">Suncity School · Inactive</div><span class="role-badge">Team Impact</span><div><span class="perf-badge perf-B" style="margin-top:6px;font-size:9px">B</span></div></div>
+        <div class="team-card intern-i" style="opacity:0.55"><div class="team-avatar">RM</div><div class="team-name">Ritwik Matta</div><div class="team-role">Delhi Public School · Inactive</div><span class="role-badge">Team Impact</span><div><span class="perf-badge perf-B" style="margin-top:6px;font-size:9px">B</span></div></div>
+      </div>
+    </div>
+
+    <div id="team-expression" class="tab-pane">
+      <div class="team-grid">
+        <div class="team-card intern-e"><div class="team-avatar">RS</div><div class="team-name">Ridhima Singh</div><div class="team-role">6 ANONTalks · AnonOtsav Main Host</div><span class="role-badge">Team Expression</span><div><span class="perf-badge perf-O" style="margin-top:6px;font-size:9px">O</span></div></div>
+        <div class="team-card intern-e"><div class="team-avatar">AS</div><div class="team-name">Aalya Sabharwal</div><div class="team-role">3 ANONTalks</div><span class="role-badge">Team Expression</span><div><span class="perf-badge perf-O" style="margin-top:6px;font-size:9px">O</span></div></div>
+        <div class="team-card intern-e"><div class="team-avatar">HP</div><div class="team-name">Himani Pawar</div><div class="team-role">5 ANONTalk topics · AnonOtsav Moderator</div><span class="role-badge">Team Expression</span><div><span class="perf-badge perf-A" style="margin-top:6px;font-size:9px">A</span></div></div>
+        <div class="team-card intern-e"><div class="team-avatar">GP</div><div class="team-name">Garv Puri</div><div class="team-role">1 ANONTalk</div><span class="role-badge">Team Expression</span><div><span class="perf-badge perf-A" style="margin-top:6px;font-size:9px">A</span></div></div>
+        <div class="team-card intern-e"><div class="team-avatar">GK</div><div class="team-name">Gitali Kapoor</div><div class="team-role">1 ANONTalk · school workshop</div><span class="role-badge">Team Expression</span><div><span class="perf-badge perf-A" style="margin-top:6px;font-size:9px">A</span></div></div>
+        <div class="team-card intern-e"><div class="team-avatar">SS</div><div class="team-name">Shailja Singh</div><div class="team-role">1 ANONTalk topic</div><span class="role-badge">Team Expression</span><div><span class="perf-badge perf-A" style="margin-top:6px;font-size:9px">A</span></div></div>
+        <div class="team-card intern-e"><div class="team-avatar">TJ</div><div class="team-name">Tvisha Jain</div><div class="team-role">1 ANONTalk</div><span class="role-badge">Team Expression</span><div><span class="perf-badge perf-A" style="margin-top:6px;font-size:9px">A</span></div></div>
+        <div class="team-card intern-e"><div class="team-avatar">TR</div><div class="team-name">Tanvi Rawat</div><div class="team-role">1 ANONTalk</div><span class="role-badge">Team Expression</span><div><span class="perf-badge perf-A" style="margin-top:6px;font-size:9px">A</span></div></div>
+        <div class="team-card intern-e"><div class="team-avatar">SN</div><div class="team-name">Suvidh Nasa</div><div class="team-role">1 ANONTalk · Anonotsav social media support</div><span class="role-badge">Team Expression</span><div><span class="perf-badge perf-A" style="margin-top:6px;font-size:9px">A</span></div></div>
+        <div class="team-card intern-e"><div class="team-avatar">NK</div><div class="team-name">Nandinie Kaushik</div><div class="team-role">1 ANONTalk</div><span class="role-badge">Team Expression</span><div><span class="perf-badge perf-A" style="margin-top:6px;font-size:9px">A</span></div></div>
+        <div class="team-card intern-e" style="opacity:0.55"><div class="team-avatar">KM</div><div class="team-name">Kanishka Masand</div><div class="team-role">Queen's Valley School · Inactive</div><span class="role-badge">Team Expression</span><div><span class="perf-badge perf-B" style="margin-top:6px;font-size:9px">B</span></div></div>
+        <div class="team-card intern-e" style="opacity:0.55"><div class="team-avatar">KY</div><div class="team-name">Kavya Yadav</div><div class="team-role">Queens Valley School · Inactive</div><span class="role-badge">Team Expression</span><div><span class="perf-badge perf-B" style="margin-top:6px;font-size:9px">B</span></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ 3. LEADERBOARD ═══════════════════ -->
+<div id="leaderboard" class="section-header fade-up">
+  <div class="section-icon gold">🏆</div>
+  <h2 class="section-title">Intern <span>Leaderboard</span></h2>
+  <span class="section-subtitle">April 2026 · AI-Scored</span>
+</div>
+
+<div class="card fade-up delay-1" style="margin-bottom:10px;padding:12px 16px;background:var(--blue-pale);border:1px solid rgba(52,96,216,0.15);">
+  <div style="font-size:12.5px;color:var(--blue-mid)">📐 <strong>Scoring:</strong> Reels/Graphics = 10 pts · Hosting/Upscale/On-ground/Anonotsav work = 8 pts · ANONTalks = 8 pts each · Content/Scripts/Blogs = 5 pts · Anonathan attendance = 10 pts · School Workshop = 10 pts</div>
+</div>
+
+<div class="card fade-up delay-2">
+  <div style="overflow-x:auto">
+    <table class="leaderboard-table">
+      <thead><tr><th style="width:44px">Rank</th><th>Name</th><th>Team</th><th>Grade</th><th>Score</th><th>Key Contributions</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><div class="rank-badge rank-1">🥇</div></td>
+          <td style="font-weight:600">Ridhima Patawat</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#E8192C;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Connect</td>
+          <td><span class="perf-badge perf-O">O</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">68</span>
+              <div class="score-bar-wrap"><div class="score-bar O" style="width:100%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">5 reels, Anonotsav video, fellowship moderation</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-2">🥈</div></td>
+          <td style="font-weight:600">Ridhima Singh</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#7C3AED;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Expression</td>
+          <td><span class="perf-badge perf-O">O</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">56</span>
+              <div class="score-bar-wrap"><div class="score-bar O" style="width:82%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">6 ANONTalks, AnonOtsav Main Host</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-3">🥉</div></td>
+          <td style="font-weight:600">Saanvi Prasad</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#E8192C;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Connect</td>
+          <td><span class="perf-badge perf-O">O</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">48</span>
+              <div class="score-bar-wrap"><div class="score-bar O" style="width:71%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">2 reels, 7 fellowship videos, Anonotsav video, 1 graphic</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-other">4</div></td>
+          <td style="font-weight:600">Ekta Ranjan</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#2045A0;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Impact</td>
+          <td><span class="perf-badge perf-O">O</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">41</span>
+              <div class="score-bar-wrap"><div class="score-bar O" style="width:60%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">Anonotsav moderation + reg, school workshop, Anonathan</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-other">5</div></td>
+          <td style="font-weight:600">Himani Pawar</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#7C3AED;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Expression</td>
+          <td><span class="perf-badge perf-A">A</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">40</span>
+              <div class="score-bar-wrap"><div class="score-bar A" style="width:59%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">5 ANONTalks, AnonOtsav Moderator</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-other">6</div></td>
+          <td style="font-weight:600">Angel Kapoor</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#E8192C;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Connect</td>
+          <td><span class="perf-badge perf-O">O</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">33</span>
+              <div class="score-bar-wrap"><div class="score-bar O" style="width:49%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">3 content, 1 graphic, Anonotsav hosting</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-other">7</div></td>
+          <td style="font-weight:600">Aparna Sharma</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#2045A0;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Impact</td>
+          <td><span class="perf-badge perf-O">O</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">33</span>
+              <div class="score-bar-wrap"><div class="score-bar O" style="width:49%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">Anonotsav registration, calling, Anonathan, school workshop</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-other">8</div></td>
+          <td style="font-weight:600">Kyra Puri</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#E8192C;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Connect</td>
+          <td><span class="perf-badge perf-O">O</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">30</span>
+              <div class="score-bar-wrap"><div class="score-bar O" style="width:44%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">1 graphic, 1 reel, 1 content, news bulletin lead</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-other">9</div></td>
+          <td style="font-weight:600">Kavish Dogra</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#E8192C;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Connect</td>
+          <td><span class="perf-badge perf-O">O</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">30</span>
+              <div class="score-bar-wrap"><div class="score-bar O" style="width:44%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">2 content, 2 reels, Anonathan</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-other">10</div></td>
+          <td style="font-weight:600">Taruna</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#E8192C;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Connect</td>
+          <td><span class="perf-badge perf-A">A</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">30</span>
+              <div class="score-bar-wrap"><div class="score-bar A" style="width:44%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">3 graphics, Anonathan</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-other">11</div></td>
+          <td style="font-weight:600">Harshita Yadav</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#E8192C;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Connect</td>
+          <td><span class="perf-badge perf-A">A</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">30</span>
+              <div class="score-bar-wrap"><div class="score-bar A" style="width:44%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">2 content, 2 graphics, school workshop</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-other">12</div></td>
+          <td style="font-weight:600">Lalita Dubey</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#2045A0;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Impact</td>
+          <td><span class="perf-badge perf-O">O</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">28</span>
+              <div class="score-bar-wrap"><div class="score-bar O" style="width:41%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">Anonotsav registration, Anonathan, school workshop</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-other">13</div></td>
+          <td style="font-weight:600">Bhumi Parewa</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#2045A0;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Impact</td>
+          <td><span class="perf-badge perf-A">A</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">26</span>
+              <div class="score-bar-wrap"><div class="score-bar A" style="width:38%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">Anonotsav runner, Upscale Birds home, Anonathan</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-other">14</div></td>
+          <td style="font-weight:600">Aalya Sabharwal</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#7C3AED;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Expression</td>
+          <td><span class="perf-badge perf-O">O</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">24</span>
+              <div class="score-bar-wrap"><div class="score-bar O" style="width:35%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">3 ANONTalks</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-other">15</div></td>
+          <td style="font-weight:600">Devya Kheterpal</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#E8192C;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Connect</td>
+          <td><span class="perf-badge perf-O">O</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">20</span>
+              <div class="score-bar-wrap"><div class="score-bar O" style="width:29%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">3 content, news bulletin script, Anonathan</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-other">16</div></td>
+          <td style="font-weight:600">Diya Sharma</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#E8192C;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Connect</td>
+          <td><span class="perf-badge perf-A">A</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">20</span>
+              <div class="score-bar-wrap"><div class="score-bar A" style="width:29%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">2 graphics</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-other">17</div></td>
+          <td style="font-weight:600">Aayushi</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#E8192C;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Connect</td>
+          <td><span class="perf-badge perf-A">A</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">15</span>
+              <div class="score-bar-wrap"><div class="score-bar A" style="width:22%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">3 content, Anonathan</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-other">18</div></td>
+          <td style="font-weight:600">Khushi</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#E8192C;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Connect</td>
+          <td><span class="perf-badge perf-A">A</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">15</span>
+              <div class="score-bar-wrap"><div class="score-bar A" style="width:22%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">Anonathan winner reel, news bulletin coordination</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-other">19</div></td>
+          <td style="font-weight:600">Gitali Kapoor</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#7C3AED;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Expression</td>
+          <td><span class="perf-badge perf-A">A</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">18</span>
+              <div class="score-bar-wrap"><div class="score-bar A" style="width:26%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">1 ANONTalk, school workshop</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-other">20</div></td>
+          <td style="font-weight:600">Shweta Tolia</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#2045A0;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Impact</td>
+          <td><span class="perf-badge perf-O">O</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">16</span>
+              <div class="score-bar-wrap"><div class="score-bar O" style="width:24%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">Anonotsav registration desk, Canva moderation</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-other">21</div></td>
+          <td style="font-weight:600">Aagam Gupta</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#2045A0;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Impact</td>
+          <td><span class="perf-badge perf-A">A</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">16</span>
+              <div class="score-bar-wrap"><div class="score-bar A" style="width:24%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">Educators Chronicles hosting, fellowship, PU Delhi</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-other">22</div></td>
+          <td style="font-weight:600">Paarth Taneja</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#2045A0;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Impact</td>
+          <td><span class="perf-badge perf-B">B</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">16</span>
+              <div class="score-bar-wrap"><div class="score-bar B" style="width:24%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">Upscale - Photoframe</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-other">23</div></td>
+          <td style="font-weight:600">Renee Sharma</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#2045A0;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Impact</td>
+          <td><span class="perf-badge perf-O">O</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">13</span>
+              <div class="score-bar-wrap"><div class="score-bar O" style="width:19%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">Anonotsav registration, calling & invites</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-other">24</div></td>
+          <td style="font-weight:600">Reyansh Arora</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#2045A0;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Impact</td>
+          <td><span class="perf-badge perf-A">A</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">13</span>
+              <div class="score-bar-wrap"><div class="score-bar A" style="width:19%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">Anonotsav registration, Canva social media</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-other">25</div></td>
+          <td style="font-weight:600">Deepshikha Yadav</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#E8192C;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Connect</td>
+          <td><span class="perf-badge perf-A">A</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">10</span>
+              <div class="score-bar-wrap"><div class="score-bar A" style="width:15%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">2 content</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-other">26</div></td>
+          <td style="font-weight:600">Tanya Sharma</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#E8192C;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Connect</td>
+          <td><span class="perf-badge perf-A">A</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">10</span>
+              <div class="score-bar-wrap"><div class="score-bar A" style="width:15%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">1 graphic, Anonathan</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-other">27</div></td>
+          <td style="font-weight:600">Garv Puri</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#7C3AED;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Expression</td>
+          <td><span class="perf-badge perf-A">A</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">8</span>
+              <div class="score-bar-wrap"><div class="score-bar A" style="width:12%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">1 ANONTalk</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-other">28</div></td>
+          <td style="font-weight:600">Tvisha Jain</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#7C3AED;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Expression</td>
+          <td><span class="perf-badge perf-A">A</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">8</span>
+              <div class="score-bar-wrap"><div class="score-bar A" style="width:12%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">1 ANONTalk</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-other">29</div></td>
+          <td style="font-weight:600">Tanvi Rawat</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#7C3AED;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Expression</td>
+          <td><span class="perf-badge perf-A">A</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">8</span>
+              <div class="score-bar-wrap"><div class="score-bar A" style="width:12%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">1 ANONTalk</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-other">30</div></td>
+          <td style="font-weight:600">Suvidh Nasa</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#7C3AED;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Expression</td>
+          <td><span class="perf-badge perf-A">A</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">8</span>
+              <div class="score-bar-wrap"><div class="score-bar A" style="width:12%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">1 ANONTalk + Anonotsav social media</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-other">31</div></td>
+          <td style="font-weight:600">Nandinie Kaushik</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#7C3AED;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Expression</td>
+          <td><span class="perf-badge perf-A">A</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">8</span>
+              <div class="score-bar-wrap"><div class="score-bar A" style="width:12%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">1 ANONTalk</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-other">32</div></td>
+          <td style="font-weight:600">Shailja Singh</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#7C3AED;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Expression</td>
+          <td><span class="perf-badge perf-A">A</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">8</span>
+              <div class="score-bar-wrap"><div class="score-bar A" style="width:12%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">1 ANONTalk</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-other">33</div></td>
+          <td style="font-weight:600">Krisha Dubey</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#E8192C;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Connect</td>
+          <td><span class="perf-badge perf-A">A</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">5</span>
+              <div class="score-bar-wrap"><div class="score-bar A" style="width:7%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">News bulletin script</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-other">34</div></td>
+          <td style="font-weight:600">Drishti Chandak</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#E8192C;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Connect</td>
+          <td><span class="perf-badge perf-A">A</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">5</span>
+              <div class="score-bar-wrap"><div class="score-bar A" style="width:7%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">1 blog, Anonotsav social media support</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-other">35</div></td>
+          <td style="font-weight:600">Krish Sethi</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#E8192C;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Connect</td>
+          <td><span class="perf-badge perf-A">A</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">5</span>
+              <div class="score-bar-wrap"><div class="score-bar A" style="width:7%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">News bulletin coordination</td>
+        </tr>
+        <tr>
+          <td><div class="rank-badge rank-other">36</div></td>
+          <td style="font-weight:600">Divyanshi Kumari</td>
+          <td style="font-size:12px;color:var(--gray-600)"><span style="width:8px;height:8px;background:#E8192C;border-radius:50%;display:inline-block;margin-right:4px;flex-shrink:0;"></span>Connect</td>
+          <td><span class="perf-badge perf-B">B</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">5</span>
+              <div class="score-bar-wrap"><div class="score-bar B" style="width:7%"></div></div>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--gray-600);max-width:220px">1 content</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════ 4. TASKS ═══════════════════ -->
+<div id="tasks" class="section-header fade-up">
+  <div class="section-icon blue">📋</div>
+  <h2 class="section-title">Task <span>Management</span></h2>
+  <span class="section-subtitle">May 2026 Sprint</span>
+</div>
+
+<div class="grid-2 fade-up delay-1">
+  <div class="card">
+    <div class="card-header">Team Connect — May Tasks</div>
+    <div class="card-body">
+      <div class="task-item"><div class="task-status-dot status-not-started"></div><div class="task-info"><div class="task-name">Creative Blog #1</div><div class="task-meta">Content Writing · Drishti Chandak</div></div><span class="task-owner">Drishti</span><span class="task-badge badge-not-started">Not Started</span><span class="deadline-chip deadline-soon">6 May</span></div>
+      <div class="task-item"><div class="task-status-dot status-not-started"></div><div class="task-info"><div class="task-name">3 Blogs (May Target)</div><div class="task-meta">Content Writing · Team Connect</div></div><span class="task-owner">TBD</span><span class="task-badge badge-not-started">Not Started</span><span class="deadline-chip deadline-ok">May 31</span></div>
+      <div class="task-item"><div class="task-status-dot status-not-started"></div><div class="task-info"><div class="task-name">Weekly News Bulletin</div><div class="task-meta">Content · Coordination</div></div><span class="task-owner">TBD</span><span class="task-badge badge-not-started">Not Started</span><span class="deadline-chip deadline-ok">Weekly</span></div>
+      <div class="task-item"><div class="task-status-dot status-not-started"></div><div class="task-info"><div class="task-name">Monthly News Bulletin</div><div class="task-meta">Content · Krisha / Devya</div></div><span class="task-owner">TBD</span><span class="task-badge badge-not-started">Not Started</span><span class="deadline-chip deadline-ok">May 31</span></div>
+      <div class="task-item"><div class="task-status-dot status-not-started"></div><div class="task-info"><div class="task-name">May Challenge — Exercise with Panchtatva</div><div class="task-meta">Graphic + Reel · Team Connect</div></div><span class="task-owner">Team</span><span class="task-badge badge-not-started">Not Started</span><span class="deadline-chip deadline-ok">TBD</span></div>
+      <div class="task-item"><div class="task-status-dot status-not-started"></div><div class="task-info"><div class="task-name">ANONotsav Reel &amp; Graphics</div><div class="task-meta">Graphic Designing · Video Editing</div></div><span class="task-owner">Team</span><span class="task-badge badge-not-started">Not Started</span><span class="deadline-chip deadline-ok">Ongoing</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">Team Impact &amp; Expression — May Tasks</div>
+    <div class="card-body">
+      <div class="task-item"><div class="task-status-dot status-not-started"></div><div class="task-info"><div class="task-name">Fellowship Moderation</div><div class="task-meta">Team Impact · On-ground</div></div><span class="task-owner">Impact</span><span class="task-badge badge-not-started">Not Started</span><span class="deadline-chip deadline-ok">Ongoing</span></div>
+      <div class="task-item"><div class="task-status-dot status-not-started"></div><div class="task-info"><div class="task-name">Project Uunchai — Delhi Chapter</div><div class="task-meta">Team Impact · NGO + Props DB</div></div><span class="task-owner">Impact</span><span class="task-badge badge-not-started">Not Started</span><span class="deadline-chip deadline-ok">TBD</span></div>
+      <div class="task-item"><div class="task-status-dot status-not-started"></div><div class="task-info"><div class="task-name">Project Uunchai Website</div><div class="task-meta">Team Impact · Learn from Preeti</div></div><span class="task-owner">Preeti</span><span class="task-badge badge-not-started">Not Started</span><span class="deadline-chip deadline-ok">TBD</span></div>
+      <div class="task-item"><div class="task-status-dot status-not-started"></div><div class="task-info"><div class="task-name">ANONTalks — Episode 5</div><div class="task-meta">Team Expression · 10th May</div></div><span class="task-owner">Expression</span><span class="task-badge badge-in-progress">Upcoming</span><span class="deadline-chip deadline-soon">10 May</span></div>
+      <div class="task-item"><div class="task-status-dot status-not-started"></div><div class="task-info"><div class="task-name">Parenting Podcast with Ridhima</div><div class="task-meta">Team Expression · Podcast</div></div><span class="task-owner">Ridhima S</span><span class="task-badge badge-not-started">Not Started</span><span class="deadline-chip deadline-ok">TBD</span></div>
+      <div class="task-item"><div class="task-status-dot status-not-started"></div><div class="task-info"><div class="task-name">Visual Arts + In-Person Meeting</div><div class="task-meta">Team Expression · Ila + Dr. Arti (Wellness Week)</div></div><span class="task-owner">Ila / Expr.</span><span class="task-badge badge-not-started">Not Started</span><span class="deadline-chip deadline-ok">TBD</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- April Completed Tasks -->
+<div class="card fade-up delay-2" style="margin-top:16px">
+  <div class="card-header">April 2026 — Completed Tasks ✅</div>
+  <div class="card-body">
+    <div class="grid-3">
+      <div class="task-item" style="border:none;padding:10px 12px;background:rgba(22,163,74,0.05);border-radius:10px;border:1px solid rgba(22,163,74,0.1)"><div class="task-status-dot status-completed" style="flex-shrink:0"></div><div class="task-info"><div class="task-name" style="font-size:13px">AnonOtsav Main Host</div><div class="task-meta">Ridhima Singh · 25 Apr</div></div><span class="task-badge badge-completed">Done</span></div>
+      <div class="task-item" style="border:none;padding:10px 12px;background:rgba(22,163,74,0.05);border-radius:10px;border:1px solid rgba(22,163,74,0.1)"><div class="task-status-dot status-completed" style="flex-shrink:0"></div><div class="task-info"><div class="task-name" style="font-size:13px">AnonOtsav Moderator</div><div class="task-meta">Himani Pawar · 25 Apr</div></div><span class="task-badge badge-completed">Done</span></div>
+      <div class="task-item" style="border:none;padding:10px 12px;background:rgba(22,163,74,0.05);border-radius:10px;border:1px solid rgba(22,163,74,0.1)"><div class="task-status-dot status-completed" style="flex-shrink:0"></div><div class="task-info"><div class="task-name" style="font-size:13px">AnonOtsav Moderator</div><div class="task-meta">Ekta Ranjan · 25 Apr</div></div><span class="task-badge badge-completed">Done</span></div>
+      <div class="task-item" style="border:none;padding:10px 12px;background:rgba(22,163,74,0.05);border-radius:10px;border:1px solid rgba(22,163,74,0.1)"><div class="task-status-dot status-completed" style="flex-shrink:0"></div><div class="task-info"><div class="task-name" style="font-size:13px">AnonOtsav Moderator</div><div class="task-meta">Angel Kapoor · 25 Apr</div></div><span class="task-badge badge-completed">Done</span></div>
+      <div class="task-item" style="border:none;padding:10px 12px;background:rgba(22,163,74,0.05);border-radius:10px;border:1px solid rgba(22,163,74,0.1)"><div class="task-status-dot status-completed" style="flex-shrink:0"></div><div class="task-info"><div class="task-name" style="font-size:13px">Fellowship Moderation + Anonotsav Video</div><div class="task-meta">Ridhima Patawat · 17 Apr</div></div><span class="task-badge badge-completed">Done</span></div>
+      <div class="task-item" style="border:none;padding:10px 12px;background:rgba(22,163,74,0.05);border-radius:10px;border:1px solid rgba(22,163,74,0.1)"><div class="task-status-dot status-completed" style="flex-shrink:0"></div><div class="task-info"><div class="task-name" style="font-size:13px">AnonOtsav Video Support</div><div class="task-meta">Saanvi Prasad · 25 Apr</div></div><span class="task-badge badge-completed">Done</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ 5. MONTHLY UPDATES ═══════════════════ -->
+<div id="updates" class="section-header fade-up">
+  <div class="section-icon red">📰</div>
+  <h2 class="section-title">Monthly <span>Updates</span></h2>
+  <span class="section-subtitle">April 2026 Scrum Summary</span>
+</div>
+
+<div class="grid-2-1 fade-up delay-1">
+  <div class="update-card">
+    <div class="update-month">📅 April 2026 · Monthly Scrum Summary</div>
+    <div class="update-title">ANONotsav 2026 — A Month of Impact &amp; Expression</div>
+    <div class="update-body">
+      April was defined by <strong>ANONotsav 2026</strong>, ANON's flagship event that brought interns, educators, and community members together. Interns across all three teams demonstrated exceptional ownership — from hosting and moderation to video editing, registration desk, fellowship moderation, and on-ground coordination.<br><br>
+      <strong>Team Connect</strong> delivered content, graphics, reels, and supported social media during ANONotsav. The monthly news bulletin was coordinated by interns, marking a first for the batch.<br><br>
+      <strong>Team Impact</strong> powered ANONotsav's registration desk, calling &amp; invites, and also conducted school workshops and attended Anonathan.<br><br>
+      <strong>Team Expression</strong> led ANONTalks sessions (6 talks hosted by Ridhima Singh alone) and Ridhima also served as the main ANONotsav host — an outstanding performance.
+    </div>
+  </div>
+  <div class="card" style="box-shadow:none">
+    <div class="card-header">Achievements &amp; Highlights</div>
+    <div class="card-body">
+      <ul class="achievement-list">
+        <li>ANONotsav 2026 successfully executed — 25th April</li>
+        <li>Ridhima Singh: Main Host of ANONotsav + 6 ANONTalks</li>
+        <li>Ridhima Patawat: 5 reels + fellowship moderation + Anonotsav video</li>
+        <li>Saanvi Prasad: 7 fellowship videos + Anonotsav video support</li>
+        <li>Ekta Ranjan &amp; Aparna Sharma: School workshops attended</li>
+        <li>Monthly News Bulletin coordination kicked off</li>
+        <li>VOM April: 7 interns recognized — Ridhima Singh, Ekta Ranjan, Saanvi Prasad, Devya, Kavish, Angel &amp; Ridhima Patawat</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ 6. EVENTS ═══════════════════ -->
+<div id="events" class="section-header fade-up">
+  <div class="section-icon purple">🗓️</div>
+  <h2 class="section-title">Events <span>Calendar</span></h2>
+  <span class="section-subtitle">April–May 2026</span>
+</div>
+
+<div class="card fade-up delay-1">
+  <div class="card-body" style="padding-top:16px">
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('upcoming')">🔜 Upcoming — May</button>
+      <button class="tab" onclick="switchTab('past')">📁 Past — April</button>
+    </div>
+    <div id="tab-upcoming" class="tab-pane active">
+      <div class="event-item">
+        <div class="event-date-box" style="background:var(--red)"><div class="event-day">30</div><div class="event-month">May</div></div>
+        <div class="event-info"><div class="event-name">Monthly Scrum Call — May 2026</div><div class="event-desc">Team performance review, leaderboard update, sprint planning for May, intern recognitions and team sync.</div><span class="event-tag tag-live">🔴 Upcoming</span></div>
+      </div>
+      <div class="event-item">
+        <div class="event-date-box"><div class="event-day">6</div><div class="event-month">May</div></div>
+        <div class="event-info"><div class="event-name">Creative Blog #1 — Drishti Chandak</div><div class="event-desc">First creative blog of May by Drishti Chandak (Team Connect).</div><span class="event-tag tag-upcoming">Upcoming</span></div>
+      </div>
+      <div class="event-item">
+        <div class="event-date-box" style="background:var(--blue-mid)"><div class="event-day">9</div><div class="event-month">May</div></div>
+        <div class="event-info"><div class="event-name">Interns Chronicles — ANONotsav Special Edition</div><div class="event-desc">Event: Chronicles — ANONotsav Special Edition. Team Expression &amp; Impact collaboration.</div><span class="event-tag tag-upcoming">Upcoming</span></div>
+      </div>
+      <div class="event-item">
+        <div class="event-date-box" style="background:#7C3AED"><div class="event-day">10</div><div class="event-month">May</div></div>
+        <div class="event-info"><div class="event-name">ANONTalks — Episode 5</div><div class="event-desc">5th edition of ANONTalks hosted by Team Expression interns.</div><span class="event-tag tag-upcoming">Upcoming</span></div>
+      </div>
+      <div class="event-item">
+        <div class="event-date-box" style="background:var(--gold)"><div class="event-day">—</div><div class="event-month">May</div></div>
+        <div class="event-info"><div class="event-name">Parenting Podcast with Ridhima</div><div class="event-desc">Team Expression podcast — date to be confirmed.</div><span class="event-tag tag-tbd">TBD</span></div>
+      </div>
+      <div class="event-item">
+        <div class="event-date-box" style="background:var(--gold)"><div class="event-day">—</div><div class="event-month">May</div></div>
+        <div class="event-info"><div class="event-name">Podcast with VOYs</div><div class="event-desc">Team Expression collaboration podcast — date TBD.</div><span class="event-tag tag-tbd">TBD</span></div>
+      </div>
+      <div class="event-item">
+        <div class="event-date-box" style="background:var(--green)"><div class="event-day">—</div><div class="event-month">May</div></div>
+        <div class="event-info"><div class="event-name">Wellness Week — Visual Arts + In-Person Meeting</div><div class="event-desc">Ila Arun Marwaha to coordinate with Dr. Arti. May wellness initiative.</div><span class="event-tag tag-tbd">Planning</span></div>
+      </div>
+      <div class="event-item">
+        <div class="event-date-box" style="background:var(--blue-mid)"><div class="event-day">—</div><div class="event-month">May</div></div>
+        <div class="event-info"><div class="event-name">May Challenge — Exercise with Panchtatva</div><div class="event-desc">Team Connect monthly challenge. Date to be confirmed.</div><span class="event-tag tag-tbd">TBD</span></div>
+      </div>
+    </div>
+    <div id="tab-past" class="tab-pane">
+      <div class="event-item">
+        <div class="event-date-box" style="background:var(--gray-600)"><div class="event-day">25</div><div class="event-month">Apr</div></div>
+        <div class="event-info"><div class="event-name">ANONotsav 2026 — Main Event</div><div class="event-desc">ANON's flagship event. Interns served as hosts, moderators, video editors, registration desk, social media team &amp; on-ground support. Outstanding participation across all teams.</div><span class="event-tag tag-past">Completed</span></div>
+      </div>
+      <div class="event-item">
+        <div class="event-date-box" style="background:var(--gray-600)"><div class="event-day">17</div><div class="event-month">Apr</div></div>
+        <div class="event-info"><div class="event-name">Fellowship Moderation</div><div class="event-desc">Ridhima Patawat led fellowship moderation + Anonotsav video support. 7 fellowship videos produced by Saanvi Prasad.</div><span class="event-tag tag-past">Completed</span></div>
+      </div>
+      <div class="event-item">
+        <div class="event-date-box" style="background:var(--gray-600)"><div class="event-day">—</div><div class="event-month">Apr</div></div>
+        <div class="event-info"><div class="event-name">Anonathan (April Edition)</div><div class="event-desc">Multiple interns attended: Kavish Dogra, Taruna, Aayushi, Tanya Sharma, Ekta Ranjan, Lalita Dubey, Bhumi Parewa, Aparna Sharma.</div><span class="event-tag tag-past">Completed</span></div>
+      </div>
+      <div class="event-item">
+        <div class="event-date-box" style="background:var(--gray-600)"><div class="event-day">—</div><div class="event-month">Apr</div></div>
+        <div class="event-info"><div class="event-name">School Workshop</div><div class="event-desc">Harshita Yadav, Gitali Kapoor, Ekta Ranjan, Lalita Dubey, Aparna Sharma attended school workshops.</div><span class="event-tag tag-past">Completed</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ 7. DATA SYNC ═══════════════════ -->
+<div id="data" class="section-header fade-up">
+  <div class="section-icon green">🔗</div>
+  <h2 class="section-title">Data <span>Integration</span></h2>
+  <span class="section-subtitle">Google Sheets Sync</span>
+</div>
+
+<div class="fade-up delay-1">
+  <div class="sheets-panel">
+    <div class="sheets-header">
+      <div class="sheets-icon">📊</div>
+      <div><div class="sheets-title">Google Sheets — Live Sync</div><div style="font-size:12px;color:rgba(255,255,255,0.7)">Publish sheet as CSV and paste URL to auto-update leaderboard</div></div>
+    </div>
+    <div class="sheets-body">
+      <div class="sheets-input-row">
+        <input type="text" class="sheets-input" id="sheetsUrl" placeholder="Paste Google Sheets CSV URL (File → Share → Publish to web → CSV)...">
+        <button class="btn btn-primary" onclick="syncSheets()">🔄 Sync</button>
+      </div>
+      <div class="sync-status" id="syncStatus"><span>📋</span><span>Current data loaded from Excel master data. Paste a CSV URL above to auto-sync future updates.</span></div>
+      <div id="sheetPreview" style="display:none;margin-top:16px"><div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--blue);margin-bottom:10px">Data Preview</div><div style="overflow-x:auto"><table class="data-preview-table" id="previewTable"></table></div></div>
+      <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--gray-100)">
+        <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--blue);margin-bottom:10px">💡 Expected Sheet Columns for Auto-Sync</div>
+        <div class="grid-3" style="gap:10px">
+          <div style="padding:12px;background:var(--gray-50);border-radius:10px;font-size:12px;color:var(--gray-600)"><div style="font-weight:700;color:var(--gray-800);margin-bottom:4px">Leaderboard Sheet</div>name · category (O/A/B) · score · tasks_done · highlights</div>
+          <div style="padding:12px;background:var(--gray-50);border-radius:10px;font-size:12px;color:var(--gray-600)"><div style="font-weight:700;color:var(--gray-800);margin-bottom:4px">Tasks Sheet</div>task_name · owner · status · deadline · team</div>
+          <div style="padding:12px;background:var(--gray-50);border-radius:10px;font-size:12px;color:var(--gray-600)"><div style="font-weight:700;color:var(--gray-800);margin-bottom:4px">Events Sheet</div>event_name · date · month · description · status</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 </main>
 
-<!-- FOOTER -->
 <footer>
-  <strong>ANON Global Foundation</strong> — Internship Scrum Dashboard · May 2026<br>
-  <span style="font-size:11px">Sensitising Children, Adolescents, Youth, Teachers & Parents on Wellbeing & Life Skills · <a href="https://anon.org.in" style="color:rgba(255,255,255,0.5)">anon.org.in</a></span>
+  <strong>ANON Global Foundation · BTI 3 · Internship Scrum Dashboard</strong><br>
+  <span style="font-size:11px">April 2026 Scrum Data · 48 Interns · 30 ECs · Sensitising Children, Adolescents, Youth, Teachers &amp; Parents · <a href="https://anon.org.in" style="color:rgba(255,255,255,0.5)">anon.org.in</a></span>
 </footer>
 
-
 <script>
-  // ── MOBILE NAV ──
-  function toggleNav() {
-    document.getElementById('mainNav').classList.toggle('open');
-  }
+  function toggleNav() {{ document.getElementById('mainNav').classList.toggle('open'); }}
+  document.querySelectorAll('nav a').forEach(a => a.addEventListener('click', () => document.getElementById('mainNav').classList.remove('open')));
 
-  // close nav on link click
-  document.querySelectorAll('nav a').forEach(a => {
-    a.addEventListener('click', () => {
-      document.getElementById('mainNav').classList.remove('open');
-    });
-  });
+  // active nav
+  window.addEventListener('scroll', () => {{
+    let cur = '';
+    document.querySelectorAll('[id]').forEach(s => {{ if(window.scrollY >= s.offsetTop - 100) cur = s.id; }});
+    document.querySelectorAll('nav a').forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#'+cur));
+  }});
 
-  // ── ACTIVE NAV HIGHLIGHT ──
-  const sections = document.querySelectorAll('[id]');
-  const navLinks = document.querySelectorAll('nav a');
+  // ring animation
+  window.addEventListener('load', () => {{
+    const ring = document.getElementById('taskRing');
+    if(ring) ring.style.strokeDashoffset = 251 * (1 - 0.75);
+  }});
 
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(s => {
-      if (window.scrollY >= s.offsetTop - 100) current = s.id;
-    });
-    navLinks.forEach(a => {
-      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
-    });
-  });
+  // tabs
+  function switchTab(name) {{
+    document.querySelectorAll('.tabs .tab').forEach((t,i) => t.classList.toggle('active', ['upcoming','past'][i] === name));
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.toggle('active', p.id === 'tab-'+name));
+  }}
 
-  // ── COUNT-UP ANIMATION ──
-  function countUp(el, target, duration = 1500) {
-    let start = 0;
-    const step = target / (duration / 16);
-    const timer = setInterval(() => {
-      start += step;
-      if (start >= target) { start = target; clearInterval(timer); }
-      el.textContent = Math.floor(start);
-    }, 16);
-  }
+  // team tab switching
+  function switchTeam(name) {{
+    const colors = {{connect:'active-c', impact:'active-i', expression:'active-e'}};
+    document.querySelectorAll('.team-tab').forEach(t => {{
+      t.className = 'team-tab';
+      if(t.onclick && t.onclick.toString().includes(name)) t.classList.add(colors[name]);
+    }});
+    ['connect','impact','expression'].forEach(n => {{
+      const el = document.getElementById('team-'+n);
+      if(el) el.classList.toggle('active', n===name);
+    }});
+  }}
 
-  // Run count-up on load (with 0s as placeholder)
-  document.querySelectorAll('.count-num').forEach(el => {
-    const target = parseInt(el.dataset.target) || 0;
-    if (target > 0) countUp(el, target);
-    else el.textContent = '—';
-  });
-
-  // ── TABS ──
-  function switchTab(name) {
-    document.querySelectorAll('.tab').forEach((t, i) => {
-      t.classList.toggle('active', ['upcoming','past'][i] === name);
-    });
-    document.querySelectorAll('.tab-pane').forEach(p => {
-      p.classList.toggle('active', p.id === 'tab-' + name);
-    });
-  }
-
-  // ── GOOGLE SHEETS SYNC ──
-  async function syncSheets() {
+  // sheets sync
+  async function syncSheets() {{
     const url = document.getElementById('sheetsUrl').value.trim();
     const statusEl = document.getElementById('syncStatus');
-    if (!url) {
-      statusEl.innerHTML = '<span>⚠️</span> <span>Please paste a valid Google Sheets CSV URL.</span>';
-      return;
-    }
-    statusEl.innerHTML = '<span class="pulse-dot"></span> <span>Fetching data from Google Sheets...</span>';
-    try {
+    if(!url) {{ statusEl.innerHTML = '<span>⚠️</span><span>Please paste a valid Google Sheets CSV URL.</span>'; return; }}
+    statusEl.innerHTML = '<span class="pulse-dot"></span><span>Fetching...</span>';
+    try {{
       const res = await fetch(url);
-      if (!res.ok) throw new Error('Network error');
       const text = await res.text();
       const rows = text.trim().split('\n').map(r => r.split(',').map(c => c.trim().replace(/^"|"$/g,'')));
-      if (rows.length < 2) throw new Error('No data found');
-
-      const headers = rows[0];
-      const body = rows.slice(1);
-
-      // render preview table
+      const headers = rows[0]; const body = rows.slice(1);
       const table = document.getElementById('previewTable');
-      table.innerHTML = '<thead><tr>' + headers.map(h => `<th>${h}</th>`).join('') + '</tr></thead>'
-        + '<tbody>' + body.slice(0, 10).map(r => '<tr>' + r.map(c => `<td>${c}</td>`).join('') + '</tr>').join('') + '</tbody>';
-
+      table.innerHTML = '<thead><tr>'+headers.map(h=>`<th>${{h}}</th>`).join('')+'</tr></thead><tbody>'+body.slice(0,10).map(r=>'<tr>'+r.map(c=>`<td>${{c}}</td>`).join('')+'</tr>').join('')+'</tbody>';
       document.getElementById('sheetPreview').style.display = 'block';
-      statusEl.innerHTML = `<span>✅</span> <span>Successfully synced <strong>${body.length} rows</strong> · ${new Date().toLocaleTimeString()}</span>`;
+      statusEl.innerHTML = `<span>✅</span><span>Synced <strong>${{body.length}} rows</strong> · ${{new Date().toLocaleTimeString()}}</span>`;
+    }} catch(e) {{ statusEl.innerHTML = `<span>❌</span><span>Could not fetch. Make sure sheet is published as CSV. (${{e.message}})</span>`; }}
+  }}
 
-      // auto-parse if sheet matches expected columns
-      autoPopulateFromSheet(headers, body);
-
-    } catch (e) {
-      statusEl.innerHTML = `<span>❌</span> <span>Could not fetch sheet. Make sure it's published as CSV and CORS-accessible. (${e.message})</span>`;
-    }
-  }
-
-  function autoPopulateFromSheet(headers, rows) {
-    const h = headers.map(x => x.toLowerCase());
-
-    // Leaderboard sheet (columns: name, category, score, tasks_done, highlights)
-    if (h.includes('name') && h.includes('category')) {
-      const nameI = h.indexOf('name');
-      const catI = h.indexOf('category');
-      const scoreI = h.indexOf('score');
-      const tasksI = h.indexOf('tasks_done') >= 0 ? h.indexOf('tasks_done') : h.indexOf('tasks done');
-      const hlI = h.indexOf('highlights');
-
-      const sorted = [...rows].sort((a, b) => parseFloat(b[scoreI]||0) - parseFloat(a[scoreI]||0));
-
-      const tbody = document.getElementById('leaderboardBody');
-      tbody.innerHTML = sorted.map((r, i) => {
-        const cat = (r[catI]||'B').trim();
-        const score = parseFloat(r[scoreI]||0);
-        const maxScore = parseFloat(sorted[0][scoreI]||100);
-        const pct = Math.round((score / maxScore) * 100);
-        return `<tr>
-          <td><div class="rank-badge ${i < 3 ? 'rank-'+(i+1) : 'rank-other'}">${i+1}</div></td>
-          <td style="font-weight:600">${r[nameI]||'—'}</td>
-          <td><span class="perf-badge perf-${cat}">${cat}</span></td>
-          <td>
-            <div style="display:flex; align-items:center; gap:8px">
-              <span style="font-family:'Syne',sans-serif; font-weight:700; font-size:15px">${score}</span>
-              <div class="score-bar-wrap"><div class="score-bar ${cat}" style="width:${pct}%"></div></div>
-            </div>
-          </td>
-          <td>${tasksI >= 0 ? r[tasksI] : '—'}</td>
-          <td style="font-size:12px; color:var(--gray-600); max-width:200px; overflow:hidden; text-overflow:ellipsis">${hlI >= 0 ? r[hlI] : '—'}</td>
-        </tr>`;
-      }).join('');
-
-      // update counts
-      const counts = { O: 0, A: 0, B: 0 };
-      rows.forEach(r => { const c = (r[catI]||'B').trim(); if (counts[c] !== undefined) counts[c]++; });
-      document.getElementById('cnt-O').textContent = counts.O;
-      document.getElementById('cnt-A').textContent = counts.A;
-      document.getElementById('cnt-B').textContent = counts.B;
-      const total = rows.length;
-      ['O','A','B'].forEach(c => {
-        document.getElementById('bar-'+c).style.width = (total ? Math.round(counts[c]/total*100) : 0) + '%';
-      });
-      document.querySelectorAll('.count-num').forEach(el => {
-        const lbl = el.parentElement?.querySelector?.('.mini-stat-lbl')?.textContent || '';
-        if (lbl.includes('Total')) countUp(el, total);
-        if (lbl.includes('Outstanding')) countUp(el, counts.O);
-      });
-    }
-  }
-
-  // ── INTERSECTION OBSERVER FOR FADE-UP ──
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.style.animationPlayState = 'running'; }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.fade-up').forEach(el => {
-    el.style.animationPlayState = 'paused';
-    observer.observe(el);
-  });
-
-  // ── ANIMATED GRADIENT BORDER ON HERO STATS ──
-  document.querySelectorAll('.hero-stat').forEach((el, i) => {
-    el.style.animationDelay = `${i * 0.15}s`;
-  });
+  // fade-up observer
+  const obs = new IntersectionObserver(entries => entries.forEach(e => {{ if(e.isIntersecting) e.target.style.animationPlayState='running'; }}), {{threshold:0.08}});
+  document.querySelectorAll('.fade-up').forEach(el => {{ el.style.animationPlayState='paused'; obs.observe(el); }});
 </script>
 </body>
 </html>
