@@ -384,9 +384,9 @@
   <div class="card-header">Intern Teams <span style="font-size:11px;font-weight:400;color:var(--gray-300);text-transform:none;letter-spacing:0;font-family:'DM Sans',sans-serif;">48 Interns · 40 Active</span></div>
   <div class="card-body">
     <div class="team-tabs">
-      <button class="team-tab active-c" onclick="switchTeam('connect')">🔴 Team Connect (23)</button>
-      <button class="team-tab" onclick="switchTeam('impact')">🔵 Team Impact (13)</button>
-      <button class="team-tab" onclick="switchTeam('expression')">🟣 Team Expression (12)</button>
+      <button class="team-tab active-c" data-team="connect" onclick="switchTeam('connect')">🔴 Team Connect (23)</button>
+      <button class="team-tab" data-team="impact" onclick="switchTeam('impact')">🔵 Team Impact (13)</button>
+      <button class="team-tab" data-team="expression" onclick="switchTeam('expression')">🟣 Team Expression (12)</button>
     </div>
 
     <div id="team-connect" class="tab-pane active">
@@ -1132,62 +1132,74 @@
 </footer>
 
 <script>
-  function toggleNav() {{ document.getElementById('mainNav').classList.toggle('open'); }}
+  function toggleNav() { document.getElementById('mainNav').classList.toggle('open'); }
   document.querySelectorAll('nav a').forEach(a => a.addEventListener('click', () => document.getElementById('mainNav').classList.remove('open')));
 
-  // active nav
-  window.addEventListener('scroll', () => {{
+  // active nav highlight on scroll
+  window.addEventListener('scroll', () => {
     let cur = '';
-    document.querySelectorAll('[id]').forEach(s => {{ if(window.scrollY >= s.offsetTop - 100) cur = s.id; }});
-    document.querySelectorAll('nav a').forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#'+cur));
-  }});
+    document.querySelectorAll('main [id], section[id]').forEach(s => { if (window.scrollY >= s.offsetTop - 100) cur = s.id; });
+    document.querySelectorAll('nav a').forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
+  });
 
-  // ring animation
-  window.addEventListener('load', () => {{
+  // task ring animation on load
+  window.addEventListener('load', () => {
     const ring = document.getElementById('taskRing');
-    if(ring) ring.style.strokeDashoffset = 251 * (1 - 0.75);
-  }});
+    if (ring) ring.style.strokeDashoffset = 251 * (1 - 0.75);
+  });
 
-  // tabs
-  function switchTab(name) {{
-    document.querySelectorAll('.tabs .tab').forEach((t,i) => t.classList.toggle('active', ['upcoming','past'][i] === name));
-    document.querySelectorAll('.tab-pane').forEach(p => p.classList.toggle('active', p.id === 'tab-'+name));
-  }}
+  // events tabs (Upcoming / Past)
+  function switchTab(name) {
+    document.querySelectorAll('.tabs .tab').forEach((t, i) => {
+      t.classList.toggle('active', ['upcoming', 'past'][i] === name);
+    });
+    document.querySelectorAll('.tab-pane').forEach(p => {
+      p.classList.toggle('active', p.id === 'tab-' + name);
+    });
+  }
 
-  // team tab switching
-  function switchTeam(name) {{
-    const colors = {{connect:'active-c', impact:'active-i', expression:'active-e'}};
-    document.querySelectorAll('.team-tab').forEach(t => {{
+  // team intern tabs (Connect / Impact / Expression)
+  function switchTeam(name) {
+    const colorMap = { connect: 'active-c', impact: 'active-i', expression: 'active-e' };
+    document.querySelectorAll('.team-tab').forEach(t => {
       t.className = 'team-tab';
-      if(t.onclick && t.onclick.toString().includes(name)) t.classList.add(colors[name]);
-    }});
-    ['connect','impact','expression'].forEach(n => {{
-      const el = document.getElementById('team-'+n);
-      if(el) el.classList.toggle('active', n===name);
-    }});
-  }}
+    });
+    const activeBtn = document.querySelector(`.team-tab[data-team="${name}"]`);
+    if (activeBtn) activeBtn.classList.add(colorMap[name]);
 
-  // sheets sync
-  async function syncSheets() {{
+    ['connect', 'impact', 'expression'].forEach(n => {
+      const el = document.getElementById('team-' + n);
+      if (el) el.classList.toggle('active', n === name);
+    });
+  }
+
+  // Google Sheets sync
+  async function syncSheets() {
     const url = document.getElementById('sheetsUrl').value.trim();
     const statusEl = document.getElementById('syncStatus');
-    if(!url) {{ statusEl.innerHTML = '<span>⚠️</span><span>Please paste a valid Google Sheets CSV URL.</span>'; return; }}
+    if (!url) { statusEl.innerHTML = '<span>⚠️</span><span>Please paste a valid Google Sheets CSV URL.</span>'; return; }
     statusEl.innerHTML = '<span class="pulse-dot"></span><span>Fetching...</span>';
-    try {{
+    try {
       const res = await fetch(url);
       const text = await res.text();
-      const rows = text.trim().split('\n').map(r => r.split(',').map(c => c.trim().replace(/^"|"$/g,'')));
-      const headers = rows[0]; const body = rows.slice(1);
+      const rows = text.trim().split('\n').map(r => r.split(',').map(c => c.trim().replace(/^"|"$/g, '')));
+      const headers = rows[0];
+      const body = rows.slice(1);
       const table = document.getElementById('previewTable');
-      table.innerHTML = '<thead><tr>'+headers.map(h=>`<th>${{h}}</th>`).join('')+'</tr></thead><tbody>'+body.slice(0,10).map(r=>'<tr>'+r.map(c=>`<td>${{c}}</td>`).join('')+'</tr>').join('')+'</tbody>';
+      table.innerHTML = '<thead><tr>' + headers.map(h => `<th>${h}</th>`).join('') + '</tr></thead>'
+        + '<tbody>' + body.slice(0, 10).map(r => '<tr>' + r.map(c => `<td>${c}</td>`).join('') + '</tr>').join('') + '</tbody>';
       document.getElementById('sheetPreview').style.display = 'block';
-      statusEl.innerHTML = `<span>✅</span><span>Synced <strong>${{body.length}} rows</strong> · ${{new Date().toLocaleTimeString()}}</span>`;
-    }} catch(e) {{ statusEl.innerHTML = `<span>❌</span><span>Could not fetch. Make sure sheet is published as CSV. (${{e.message}})</span>`; }}
-  }}
+      statusEl.innerHTML = `<span>✅</span><span>Synced <strong>${body.length} rows</strong> · ${new Date().toLocaleTimeString()}</span>`;
+    } catch (e) {
+      statusEl.innerHTML = `<span>❌</span><span>Could not fetch. Make sure sheet is published as CSV. (${e.message})</span>`;
+    }
+  }
 
-  // fade-up observer
-  const obs = new IntersectionObserver(entries => entries.forEach(e => {{ if(e.isIntersecting) e.target.style.animationPlayState='running'; }}), {{threshold:0.08}});
-  document.querySelectorAll('.fade-up').forEach(el => {{ el.style.animationPlayState='paused'; obs.observe(el); }});
+  // fade-up scroll observer
+  const obs = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) e.target.style.animationPlayState = 'running';
+  }), { threshold: 0.08 });
+  document.querySelectorAll('.fade-up').forEach(el => { el.style.animationPlayState = 'paused'; obs.observe(el); });
 </script>
 </body>
 </html>
